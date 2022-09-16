@@ -1,0 +1,6 @@
+.profile__edit-button {
+    background: url(../../../images/edit-button.png) center center no-repeat;
+    background-size: cover;
+    width: 24px;
+    height: 24px;
+}
