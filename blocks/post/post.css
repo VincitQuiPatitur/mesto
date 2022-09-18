@@ -2,3 +2,9 @@
     max-width: calc(100% - 400px);
     margin: 0 auto;
 }
+
+@media (max-width: 1024px) {
+    .post {
+        max-width: 100%;
+    }
+}

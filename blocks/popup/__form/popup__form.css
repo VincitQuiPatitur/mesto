@@ -5,3 +5,9 @@
     padding: 34px 36px 37px;
     box-sizing: border-box;
 }
+
+@media (max-width: 1024px) {
+    .popup__form {
+        padding: 25px 22px;
+    }
+}

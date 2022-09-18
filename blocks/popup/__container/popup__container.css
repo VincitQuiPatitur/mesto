@@ -8,3 +8,10 @@
     box-sizing: border-box;
     position: relative;
 }
+
+@media (max-width: 1024px) {
+    .popup__container {
+        min-width: 282px;
+        max-width: calc(100% - 19px * 2);
+    }
+}

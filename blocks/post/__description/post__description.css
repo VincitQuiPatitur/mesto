@@ -1,6 +1,9 @@
 .post__description {
     display: flex;
     justify-content: space-around;
-    margin: 30px 20px;
+    margin: 25px 20px 30px 21px;
     align-items: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }

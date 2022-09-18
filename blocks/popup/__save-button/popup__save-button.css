@@ -12,6 +12,16 @@
     transition: opacity 0.2s ease-in-out;
     cursor: pointer;
 }
+
 .popup__save-button:hover {
     opacity: .8;
+}
+
+@media (max-width: 1024px) {
+    .popup__save-button {
+        margin-top: 15px;
+        font-size: 14px;
+        line-height: 17px;
+        height: 46px;
+    }
 }

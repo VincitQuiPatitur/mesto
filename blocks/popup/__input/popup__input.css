@@ -6,4 +6,16 @@
     height: 27px;
     box-sizing: border-box;
     margin-bottom: 30px;
+    font-size: 14px;
+    line-height: 17px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+@media (max-width: 1024px) {
+    .popup__input {
+        font-size: 14px;
+        line-height: 17px;
+    }
 }
