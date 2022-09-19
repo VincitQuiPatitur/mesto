@@ -9,6 +9,7 @@
     line-height: 22px;
     text-align: center;
     margin-top: 18px;
+    padding: 0;
     transition: opacity 0.2s ease-in-out;
     cursor: pointer;
 }

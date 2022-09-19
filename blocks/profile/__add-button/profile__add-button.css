@@ -4,7 +4,9 @@
     background: url(../../../images/add-button.svg) center center no-repeat;
     background-size: inherit;
     border: 2px solid #fff;
+    border-radius: 2px;
     margin: 0 0 0 auto;
+    padding: 0;
     box-sizing: border-box;
     cursor: pointer;
     transition: opacity 0.2s ease-in-out;

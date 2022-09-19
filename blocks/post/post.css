@@ -1,10 +1,12 @@
 .post {
-    max-width: calc(100% - 400px);
-    margin: 0 auto;
+    width: 100%
 }
+
 
 @media (max-width: 1024px) {
     .post {
-        max-width: 100%;
+        max-width: calc(100% - 400px);
+        min-width: 282px;
+        margin: 0 auto;
     }
 }

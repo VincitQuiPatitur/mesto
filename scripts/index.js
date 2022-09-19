@@ -10,14 +10,14 @@ let userName = popup.querySelector('.popup__input_type_user-name');
 let description = popup.querySelector('.popup__input_type_description');
 
 
-popupEditButton.addEventListener('click', function openPopup(){
-    popup.classList.toggle('popup__opened');
+popupEditButton.addEventListener('click', function openPopup() {
+    popup.classList.toggle('popup_opened');
     userName.value = profileUserName.textContent;
     description.value = profileDescription.textContent;
 });
 
 function closePopup() {
-    popup.classList.toggle('popup__opened');
+    popup.classList.toggle('popup_opened');
 }
 
 popupCloseButton.addEventListener('click', closePopup);
