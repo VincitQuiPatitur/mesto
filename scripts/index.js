@@ -4,17 +4,18 @@ const popupCloseButton = popup.querySelector('.popup__close-button');
 const profileUserName = document.querySelector('.profile__user-name');
 const profileDescription = document.querySelector('.profile__description');
 
-let formElement = popup.querySelector('.popup__form');
+const formElement = popup.querySelector('.popup__form');
 
-let userName = popup.querySelector('.popup__input_type_user-name');
-let description = popup.querySelector('.popup__input_type_description');
+const userName = popup.querySelector('.popup__input_type_user-name');
+const description = popup.querySelector('.popup__input_type_description');
 
-
-popupEditButton.addEventListener('click', function openPopup() {
+function openPopup() {
     popup.classList.toggle('popup_opened');
     userName.value = profileUserName.textContent;
     description.value = profileDescription.textContent;
-});
+}
+
+popupEditButton.addEventListener('click', openPopup);
 
 function closePopup() {
     popup.classList.toggle('popup_opened');
