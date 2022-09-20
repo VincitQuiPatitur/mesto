@@ -18,49 +18,49 @@
         <img src="images/avatar.jpg" alt="Фото пользователя" class="profile__avatar">
         <div class="profile__info">
             <h1 class="profile__user-name">Кострова Арина</h1>
-            <button class="profile__edit-button profile__open-popup" type="button"></button>
+            <button class="profile__edit-button" type="button"></button>
             <p class="profile__description">Программирую и путешествую</p>
         </div>
         <button class="profile__add-button" type="button"></button>
     </section>
-    <section class="post">
-        <ul class="post__container">
-            <li class="post__item">
+    <section class="posts">
+        <ul class="posts__container">
+            <li class="post">
                 <img src="images/post-photos/Barcelona.JPG" alt="Барселона" class="post__image">
                 <div class="post__description">
                     <h2 class="post__subscription">Барселона</h2>
                     <button class="post__like" type="button"></button>
                 </div>
             </li>
-            <li class="post__item">
+            <li class="post">
                 <img src="images/post-photos/Venecia.JPG" alt="Венеция" class="post__image">
                 <div class="post__description">
                     <h2 class="post__subscription">Венеция</h2>
                     <button class="post__like" type="button"></button>
                 </div>
             </li>
-            <li class="post__item">
+            <li class="post">
                 <img src="images/post-photos/Porto.JPG" alt="Порто" class="post__image">
                 <div class="post__description">
                     <h2 class="post__subscription">Порто</h2>
                     <button class="post__like" type="button"></button>
                 </div>
             </li>
-            <li class="post__item">
+            <li class="post">
                 <img src="images/post-photos/Vein.JPG" alt="Вена" class="post__image">
                 <div class="post__description">
                     <h2 class="post__subscription">Вена</h2>
                     <button class="post__like" type="button"></button>
                 </div>
             </li>
-            <li class="post__item">
+            <li class="post">
                 <img src="images/post-photos/Budapest.JPG" alt="Будапешт" class="post__image">
                 <div class="post__description">
                     <h2 class="post__subscription">Будапешт</h2>
                     <button class="post__like" type="button"></button>
                 </div>
             </li>
-            <li class="post__item">
+            <li class="post">
                 <img src="images/post-photos/Lugano.JPG" alt="Лугано" class="post__image">
                 <div class="post__description">
                     <h2 class="post__subscription">Лугано</h2>
@@ -73,19 +73,19 @@
 <footer class="footer">
     <p class="footer__author">&copy; 2022 Mesto Russia</p>
 </footer>
-<section class="popup">
+<div class="popup">
     <div class="popup__container">
-        <button class="popup__close-button"></button>
-        <form class="popup__form">
-            <h2 class="popup__title">Редактировать профиль</h2>
-            <input type="text" placeholder="Имя пользователя" name="user-name"
+        <button class="popup__close-button" type="button"></button>
+        <form class="popup__form" name="redaction">
+            <h3 class="popup__title">Редактировать профиль</h3>
+            <input type="text" placeholder="Имя пользователя" name="userName"
                    class="popup__input popup__input_type_user-name">
             <input type="text" placeholder="Краткое описание" name="description"
                    class="popup__input popup__input_type_description">
-            <button class="popup__save-button">Сохранить</button>
+            <button class="popup__save-button" type="submit">Сохранить</button>
         </form>
     </div>
-</section>
+</div>
 <script src="scripts/index.js"></script>
 </body>
 </html>

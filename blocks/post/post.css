@@ -1,11 +1,6 @@
 .post {
-    width: 100%;
-}
-
-@media (max-width: 1024px) {
-    .post {
-        max-width: calc(100% - 400px);
-        min-width: 282px;
-        margin: 0 auto;
-    }
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 361px;
 }
