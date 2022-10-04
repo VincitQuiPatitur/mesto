@@ -7,6 +7,8 @@
     <meta name="keywords" content="HTML5, CSS, JavaScript">
     <meta name="author" content="Кострова Арина">
     <link rel="stylesheet" href="pages/index.css">
+    <link rel="stylesheet" href="style.css">
+
     <title>Mesto</title>
 </head>
 <body class="root">
@@ -23,50 +25,8 @@
         </div>
         <button class="profile__add-button" type="button" aria-label="Добавить пост"></button>
     </section>
-    <section class="posts">
-        <ul class="posts__container">
-            <li class="post">
-                <img src="images/post-photos/Barcelona.JPG" alt="Барселона" class="post__image">
-                <div class="post__description">
-                    <h2 class="post__subscription">Барселона</h2>
-                    <button class="post__like" type="button" aria-label="Лайк"></button>
-                </div>
-            </li>
-            <li class="post">
-                <img src="images/post-photos/Venecia.JPG" alt="Венеция" class="post__image">
-                <div class="post__description">
-                    <h2 class="post__subscription">Венеция</h2>
-                    <button class="post__like" type="button" aria-label="Лайк"></button>
-                </div>
-            </li>
-            <li class="post">
-                <img src="images/post-photos/Porto.JPG" alt="Порто" class="post__image">
-                <div class="post__description">
-                    <h2 class="post__subscription">Порто</h2>
-                    <button class="post__like" type="button" aria-label="Лайк"></button>
-                </div>
-            </li>
-            <li class="post">
-                <img src="images/post-photos/Vein.JPG" alt="Вена" class="post__image">
-                <div class="post__description">
-                    <h2 class="post__subscription">Вена</h2>
-                    <button class="post__like" type="button" aria-label="Лайк"></button>
-                </div>
-            </li>
-            <li class="post">
-                <img src="images/post-photos/Budapest.JPG" alt="Будапешт" class="post__image">
-                <div class="post__description">
-                    <h2 class="post__subscription">Будапешт</h2>
-                    <button class="post__like" type="button" aria-label="Лайк"></button>
-                </div>
-            </li>
-            <li class="post">
-                <img src="images/post-photos/Lugano.JPG" alt="Лугано" class="post__image">
-                <div class="post__description">
-                    <h2 class="post__subscription">Лугано</h2>
-                    <button class="post__like" type="button" aria-label="Лайк"></button>
-                </div>
-            </li>
+    <section class="post">
+        <ul class="post__container">
         </ul>
     </section>
 </main>
@@ -86,6 +46,17 @@
         </form>
     </div>
 </div>
-<script src="scripts/index.js"></script>
+</section>
+<template class="post__template">
+    <li class="post__item">
+        <img scr="" alt="" class="post__image">
+        <div class="post__description">
+            <p class="post__subscription"></p>
+            <button class="post__like" type="button"></button>
+        </div>
+    </li>
+</template>
+<script type="text/javascript" src="scripts/images.js"></script>
+<script type="text/javascript" src="scripts/index.js"></script>
 </body>
 </html>
