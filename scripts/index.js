@@ -65,7 +65,7 @@ const postContainer = document.querySelector('.post__container');
  }
 
 //функция добавления изображения
-function addImage(postSubscription, postImage) {
+/*function addImage(postSubscription, postImage) {
 
     const cardTemplate = document.querySelector('.post__template').content;
     const postItem = cardTemplate.querySelector('.post__item').cloneNode(true);
@@ -74,7 +74,7 @@ function addImage(postSubscription, postImage) {
     postItem.querySelector('.post__image').textContent = postImage;
 
     postContainer.prepend(postItem);
-}
+}*/
 
 
 
