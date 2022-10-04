@@ -34,10 +34,10 @@ function formSubmitHandler(evt) {
 formElement.addEventListener('submit', formSubmitHandler);
 
 //подгрузка изображений через js
-const postContainer = document.querySelector('.post__container');
+const postContainer = document.querySelector('.posts__container');
  for (let i=0; i<initialCards.length; i++) {
      const postItem = document.createElement('li');
-     postItem.className = 'post__item';
+     postItem.className = 'post';
 
      const postImage = document.createElement('img');
      postImage.className = 'post__image';
