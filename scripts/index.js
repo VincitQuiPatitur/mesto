@@ -1,83 +1,90 @@
-const popupEditButton = document.querySelector('.profile__edit-button');
-const popup = document.querySelector('.popup');
-const popupCloseButton = popup.querySelector('.popup__close-button');
+const popupEditProfileButton = document.querySelector('.profile__edit-button');
+const popupAddPhotoButton = document.querySelector('.profile__add-button');
+
+const popupEditProfile = document.querySelector('.popup_type_edit-profile');
+const popupCreatePost = document.querySelector('.popup_type_add-photo');
+
+const popupCloseProfileButton = document.querySelector('.popup__close-button_type_profile');
+const popupClosePostButton = document.querySelector('.popup__close-button_type_post');
+
 const profileUserName = document.querySelector('.profile__user-name');
 const profileDescription = document.querySelector('.profile__description');
 
-const formElement = popup.querySelector('.popup__form');
+const formElementProfile = popupEditProfile.querySelector('.popup__form_type_profile-reaction');
 
-const userName = popup.querySelector('.popup__input_type_user-name');
-const description = popup.querySelector('.popup__input_type_description');
+const userName = popupEditProfile.querySelector('.popup__input_type_user-name');
+const description = popupEditProfile.querySelector('.popup__input_type_description');
 
-function openPopup() {
-    popup.classList.toggle('popup_opened');
-    userName.value = profileUserName.textContent;
-    description.value = profileDescription.textContent;
+const postName = popupCreatePost.querySelector('.popup__input_type_post-name');
+const imageLink = popupCreatePost.querySelector('.popup__input_type_link');
+
+const savePhotoButton = document.querySelector('.popup__save-button_type_create-new-post');
+
+const postContainer = document.querySelector('.posts__container');
+const postTemplate = document.querySelector('.post__template').content;
+
+for (let i=0; i<initialCards.length; i++) {
+
+    const post = postTemplate.querySelector('.post').cloneNode(true);
+
+    post.querySelector('.post__image').src = initialCards[i].link;
+    post.querySelector('.post__image').alt = initialCards[i].name;
+    post.querySelector('.post__subscription').textContent = initialCards[i].name;
+
+    postContainer.append(post);
 }
 
-popupEditButton.addEventListener('click', openPopup);
-
-function closePopup() {
-    popup.classList.toggle('popup_opened');
+function openPopup(event) {
+    if (event.currentTarget === popupEditProfileButton) {
+        popupEditProfile.classList.toggle('popup_opened');
+        userName.value = profileUserName.textContent;
+        description.value = profileDescription.textContent;
+    }
+    if (event.currentTarget === popupAddPhotoButton) {
+        popupCreatePost.classList.toggle('popup_opened');
+        postName.value = '';
+        imageLink.value = '';
+    }
 }
 
-popupCloseButton.addEventListener('click', closePopup);
+popupEditProfileButton.addEventListener('click', openPopup);
+popupAddPhotoButton.addEventListener('click', openPopup);
+
+function closePopup(currentPopup) {
+    currentPopup.classList.remove('popup_opened');
+}
+
+popupCloseProfileButton.addEventListener('click',function () {closePopup(popupEditProfile)});
+popupClosePostButton.addEventListener('click',function () {closePopup(popupCreatePost)});
 
 function formSubmitHandler(evt) {
     evt.preventDefault();
     profileUserName.textContent = userName.value;
     profileDescription.textContent = description.value;
 
-    closePopup();
+    closePopup(popupEditProfile);
 }
 
-formElement.addEventListener('submit', formSubmitHandler);
+formElementProfile.addEventListener('submit', formSubmitHandler);
 
-//подгрузка изображений через js
-const postContainer = document.querySelector('.posts__container');
- for (let i=0; i<initialCards.length; i++) {
-     const postItem = document.createElement('li');
-     postItem.className = 'post';
+function addNewPost(postName, imageLink) {
+    const post = postTemplate.querySelector('.post').cloneNode(true);
 
-     const postImage = document.createElement('img');
-     postImage.className = 'post__image';
-     postImage.alt = initialCards[i].name;
-     postImage.src = initialCards[i].link;
+    post.querySelector('.post__subscription').textContent = postName;
+    post.querySelector('.post__image').src = imageLink;
+    post.querySelector('.post__image').alt = postName;
 
-     const postDescription = document.createElement('div');
-     postDescription.className = 'post__description';
+    postContainer.prepend(post);
+}
 
-     const postSubscription = document.createElement('p');
-     postSubscription.className = 'post__subscription';
-     postSubscription.textContent = initialCards[i].name;
+savePhotoButton.addEventListener('click', function(){
+    addNewPost(postName.value, imageLink.value);
 
-     const postLike = document.createElement('button');
-     postLike.className = 'post__like';
-     postLike.type = 'button';
+    postName.value = '';
+    imageLink.value = '';
 
-     postDescription.appendChild(postSubscription);
-     postDescription.appendChild(postLike);
-
-     postItem.appendChild(postImage);
-     postItem.appendChild(postDescription);
-
-     postContainer.append(postItem);
- }
-
-//функция добавления изображения
-/*function addImage(postSubscription, postImage) {
-
-    const cardTemplate = document.querySelector('.post__template').content;
-    const postItem = cardTemplate.querySelector('.post__item').cloneNode(true);
-
-    postItem.querySelector('.post__subscription').textContent = postSubscription;
-    postItem.querySelector('.post__image').textContent = postImage;
-
-    postContainer.prepend(postItem);
-}*/
-
-
-
+    closePopup(popupCreatePost);
+});
 
 
 
