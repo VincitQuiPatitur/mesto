@@ -10,7 +10,8 @@ const popupClosePostButton = document.querySelector('.popup__close-button_type_p
 const profileUserName = document.querySelector('.profile__user-name');
 const profileDescription = document.querySelector('.profile__description');
 
-const formElementProfile = popupEditProfile.querySelector('.popup__form_type_profile-reaction');
+const formElementProfile = popupEditProfile.querySelector('.popup__form_type_profile-redaction');
+const formCreateNewPost = popupCreatePost.querySelector('.popup__form_type_post-creating');
 
 const userName = popupEditProfile.querySelector('.popup__input_type_user-name');
 const description = popupEditProfile.querySelector('.popup__input_type_description');
@@ -18,21 +19,11 @@ const description = popupEditProfile.querySelector('.popup__input_type_descripti
 const postName = popupCreatePost.querySelector('.popup__input_type_post-name');
 const imageLink = popupCreatePost.querySelector('.popup__input_type_link');
 
-const savePhotoButton = document.querySelector('.popup__save-button_type_create-new-post');
-
 const postContainer = document.querySelector('.posts__container');
-const postTemplate = document.querySelector('.post__template').content;
 
-for (let i=0; i<initialCards.length; i++) {
-
-    const post = postTemplate.querySelector('.post').cloneNode(true);
-
-    post.querySelector('.post__image').src = initialCards[i].link;
-    post.querySelector('.post__image').alt = initialCards[i].name;
-    post.querySelector('.post__subscription').textContent = initialCards[i].name;
-
-    postContainer.append(post);
-}
+initialCards.forEach((card) => {
+    addNewPost(card.name, card.link);
+});
 
 function openPopup(event) {
     if (event.currentTarget === popupEditProfileButton) {
@@ -65,26 +56,26 @@ function formSubmitHandler(evt) {
     closePopup(popupEditProfile);
 }
 
-formElementProfile.addEventListener('submit', formSubmitHandler);
-
 function addNewPost(postName, imageLink) {
+    const postTemplate = document.querySelector('.post__template').content;
     const post = postTemplate.querySelector('.post').cloneNode(true);
 
     post.querySelector('.post__subscription').textContent = postName;
     post.querySelector('.post__image').src = imageLink;
     post.querySelector('.post__image').alt = postName;
+    post.querySelector('.post__like').addEventListener('click', function (evt) {
+        evt.target.classList.toggle('post__like_active');
+    });
 
     postContainer.prepend(post);
 }
 
-savePhotoButton.addEventListener('click', function(){
+function createNewPost(evt) {
+    evt.preventDefault();
     addNewPost(postName.value, imageLink.value);
 
-    postName.value = '';
-    imageLink.value = '';
-
     closePopup(popupCreatePost);
-});
+}
 
-
-
+formElementProfile.addEventListener('submit', formSubmitHandler);
+formCreateNewPost.addEventListener('submit', createNewPost);
