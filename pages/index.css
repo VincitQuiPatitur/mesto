@@ -18,6 +18,7 @@
 @import url(../blocks/posts/posts.css);
 @import url(../blocks/posts/__container/posts__container.css);
 @import url(../blocks/post/post.css);
+@import url(../blocks/post/__delete/post__delete.css);
 @import url(../blocks/post/__image/post__image.css);
 @import url(../blocks/post/__description/post__description.css);
 @import url(../blocks/post/__subscription/post__subscription.css);

@@ -66,6 +66,9 @@ function addNewPost(postName, imageLink) {
     post.querySelector('.post__like').addEventListener('click', function (evt) {
         evt.target.classList.toggle('post__like_active');
     });
+    post.querySelector('.post__delete').addEventListener('click', function (evt) {
+        evt.target.closest('.post').remove();
+    });
 
     postContainer.prepend(post);
 }
