@@ -28,6 +28,14 @@ const postContainer = document.querySelector('.posts__container');
 
 const postTemplate = document.querySelector('.post__template').content;
 
+function openPopup(popup) {
+    popup.classList.add('popup_opened');
+}
+
+function closePopup(currentPopup) {
+    currentPopup.classList.remove('popup_opened');
+}
+
 function likeThePost(evt) {
     evt.target.classList.toggle('post__like_active');
 }
@@ -55,14 +63,26 @@ function createCard(postName, imageLink) {
     return post;
 }
 
+function editProfileInformation(evt) {
+    evt.preventDefault();
+    profileUserName.textContent = userName.value;
+    profileDescription.textContent = description.value;
+
+    closePopup(popupEditProfile);
+}
+
+function createNewPost(evt) {
+    evt.preventDefault();
+    const newPost = createCard(postName.value, imageLink.value);
+    postContainer.prepend(newPost);
+
+    closePopup(popupCreatePost);
+}
+
 initialCards.forEach((card) => {
     const newCard = createCard(card.name, card.link);
     postContainer.append(newCard);
 });
-
-function closePopup(currentPopup) {
-    currentPopup.classList.remove('popup_opened');
-}
 
 popupCloseProfileButton.addEventListener('click', function () {
     closePopup(popupEditProfile)
@@ -74,18 +94,6 @@ popupCloseImage.addEventListener('click', function () {
     closePopup(popupOpenImage)
 })
 
-function createNewPost(evt) {
-    evt.preventDefault();
-    const newPost = createCard(postName.value, imageLink.value);
-    postContainer.prepend(newPost);
-
-    closePopup(popupCreatePost);
-}
-
-function openPopup(popup) {
-    popup.classList.add('popup_opened');
-}
-
 popupEditProfileButton.addEventListener('click', function () {
     openPopup(popupEditProfile);
     userName.value = profileUserName.textContent;
@@ -95,14 +103,6 @@ popupAddPhotoButton.addEventListener('click', function () {
     openPopup(popupCreatePost);
     formCreateNewPost.reset();
 });
-
-function editProfileInformation(evt) {
-    evt.preventDefault();
-    profileUserName.textContent = userName.value;
-    profileDescription.textContent = description.value;
-
-    closePopup(popupEditProfile);
-}
 
 formElementProfile.addEventListener('submit', editProfileInformation);
 formCreateNewPost.addEventListener('submit', createNewPost);
