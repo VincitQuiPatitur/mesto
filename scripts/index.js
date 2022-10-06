@@ -23,48 +23,6 @@ const imageLink = popupCreatePost.querySelector('.popup__input_type_link');
 
 const postContainer = document.querySelector('.posts__container');
 
-initialCards.forEach((card) => {
-    addNewPost(card.name, card.link);
-});
-
-function openPopup(event) {
-    if (event.currentTarget === popupEditProfileButton) {
-        popupEditProfile.classList.toggle('popup_opened');
-        userName.value = profileUserName.textContent;
-        description.value = profileDescription.textContent;
-    }
-    if (event.currentTarget === popupAddPhotoButton) {
-        popupCreatePost.classList.toggle('popup_opened');
-        postName.value = '';
-        imageLink.value = '';
-    }
-}
-
-popupEditProfileButton.addEventListener('click', openPopup);
-popupAddPhotoButton.addEventListener('click', openPopup);
-
-function closePopup(currentPopup) {
-    currentPopup.classList.remove('popup_opened');
-}
-
-popupCloseProfileButton.addEventListener('click', function () {
-    closePopup(popupEditProfile)
-});
-popupClosePostButton.addEventListener('click', function () {
-    closePopup(popupCreatePost)
-});
-popupCloseImage.addEventListener('click', function () {
-    closePopup(popupOpenImage)
-})
-
-function formSubmitHandler(evt) {
-    evt.preventDefault();
-    profileUserName.textContent = userName.value;
-    profileDescription.textContent = description.value;
-
-    closePopup(popupEditProfile);
-}
-
 function addNewPost(postName, imageLink) {
     const postTemplate = document.querySelector('.post__template').content;
     const post = postTemplate.querySelector('.post').cloneNode(true);
@@ -88,11 +46,53 @@ function addNewPost(postName, imageLink) {
     postContainer.prepend(post);
 }
 
+initialCards.forEach((card) => {
+    addNewPost(card.name, card.link);
+});
+
+function closePopup(currentPopup) {
+    currentPopup.classList.remove('popup_opened');
+}
+
+popupCloseProfileButton.addEventListener('click', function () {
+    closePopup(popupEditProfile)
+});
+popupClosePostButton.addEventListener('click', function () {
+    closePopup(popupCreatePost)
+});
+popupCloseImage.addEventListener('click', function () {
+    closePopup(popupOpenImage)
+})
+
 function createNewPost(evt) {
     evt.preventDefault();
     addNewPost(postName.value, imageLink.value);
 
     closePopup(popupCreatePost);
+}
+
+function openPopup(event) {
+    if (event.currentTarget === popupEditProfileButton) {
+        popupEditProfile.classList.toggle('popup_opened');
+        userName.value = profileUserName.textContent;
+        description.value = profileDescription.textContent;
+    }
+    if (event.currentTarget === popupAddPhotoButton) {
+        popupCreatePost.classList.toggle('popup_opened');
+        postName.value = '';
+        imageLink.value = '';
+    }
+}
+
+popupEditProfileButton.addEventListener('click', openPopup);
+popupAddPhotoButton.addEventListener('click', openPopup);
+
+function formSubmitHandler(evt) {
+    evt.preventDefault();
+    profileUserName.textContent = userName.value;
+    profileDescription.textContent = description.value;
+
+    closePopup(popupEditProfile);
 }
 
 formElementProfile.addEventListener('submit', formSubmitHandler);
