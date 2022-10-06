@@ -36,9 +36,9 @@ function deleteThePost(evt) {
     evt.target.closest('.post').remove();
 }
 
-function addNewPost(postName, imageLink) {
+function createCard(postName, imageLink) {
     const post = postTemplate.querySelector('.post').cloneNode(true);
-    const image =  post.querySelector('.post__image');
+    const image = post.querySelector('.post__image');
 
     post.querySelector('.post__subscription').textContent = postName;
     image.src = imageLink;
@@ -46,17 +46,18 @@ function addNewPost(postName, imageLink) {
     post.querySelector('.post__like').addEventListener('click', likeThePost);
     post.querySelector('.post__delete').addEventListener('click', deleteThePost);
     image.addEventListener('click', function () {
-        popupOpenImage.classList.toggle('popup_opened');
+        openPopup(popupOpenImage);
         popupImage.src = imageLink;
         popupImage.alt = postName;
         popupCaption.textContent = postName;
     });
 
-    postContainer.prepend(post);
+    return post;
 }
 
 initialCards.forEach((card) => {
-    addNewPost(card.name, card.link);
+    const newCard = createCard(card.name, card.link);
+    postContainer.append(newCard);
 });
 
 function closePopup(currentPopup) {
@@ -75,25 +76,25 @@ popupCloseImage.addEventListener('click', function () {
 
 function createNewPost(evt) {
     evt.preventDefault();
-    addNewPost(postName.value, imageLink.value);
+    const newPost = createCard(postName.value, imageLink.value);
+    postContainer.prepend(newPost);
 
     closePopup(popupCreatePost);
 }
 
-function openPopup(event) {
-    if (event.currentTarget === popupEditProfileButton) {
-        popupEditProfile.classList.add('popup_opened');
-        userName.value = profileUserName.textContent;
-        description.value = profileDescription.textContent;
-    }
-    if (event.currentTarget === popupAddPhotoButton) {
-        popupCreatePost.classList.add('popup_opened');
-        formCreateNewPost.reset();
-    }
+function openPopup(popup) {
+    popup.classList.add('popup_opened');
 }
 
-popupEditProfileButton.addEventListener('click', openPopup);
-popupAddPhotoButton.addEventListener('click', openPopup);
+popupEditProfileButton.addEventListener('click', function () {
+    openPopup(popupEditProfile);
+    userName.value = profileUserName.textContent;
+    description.value = profileDescription.textContent;
+});
+popupAddPhotoButton.addEventListener('click', function () {
+    openPopup(popupCreatePost);
+    formCreateNewPost.reset();
+});
 
 function editProfileInformation(evt) {
     evt.preventDefault();
