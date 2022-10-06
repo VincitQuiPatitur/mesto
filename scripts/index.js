@@ -21,26 +21,35 @@ const description = popupEditProfile.querySelector('.popup__input_type_descripti
 const postName = popupCreatePost.querySelector('.popup__input_type_post-name');
 const imageLink = popupCreatePost.querySelector('.popup__input_type_link');
 
+const popupImage = popupOpenImage.querySelector('.popup__image');
+const popupCaption = popupOpenImage.querySelector('.popup__caption');
+
 const postContainer = document.querySelector('.posts__container');
 
+const postTemplate = document.querySelector('.post__template').content;
+
+function likeThePost(evt) {
+    evt.target.classList.toggle('post__like_active');
+}
+
+function deleteThePost(evt) {
+    evt.target.closest('.post').remove();
+}
+
 function addNewPost(postName, imageLink) {
-    const postTemplate = document.querySelector('.post__template').content;
     const post = postTemplate.querySelector('.post').cloneNode(true);
+    const image =  post.querySelector('.post__image');
 
     post.querySelector('.post__subscription').textContent = postName;
-    post.querySelector('.post__image').src = imageLink;
-    post.querySelector('.post__image').alt = postName;
-    post.querySelector('.post__like').addEventListener('click', function (evt) {
-        evt.target.classList.toggle('post__like_active');
-    });
-    post.querySelector('.post__delete').addEventListener('click', function (evt) {
-        evt.target.closest('.post').remove();
-    });
-    post.querySelector('.post__image').addEventListener('click', function () {
+    image.src = imageLink;
+    image.alt = postName;
+    post.querySelector('.post__like').addEventListener('click', likeThePost);
+    post.querySelector('.post__delete').addEventListener('click', deleteThePost);
+    image.addEventListener('click', function () {
         popupOpenImage.classList.toggle('popup_opened');
-        popupOpenImage.querySelector('.popup__image').src = imageLink;
-        popupOpenImage.querySelector('.popup__image').alt = postName;
-        popupOpenImage.querySelector('.popup__caption').textContent = postName;
+        popupImage.src = imageLink;
+        popupImage.alt = postName;
+        popupCaption.textContent = postName;
     });
 
     postContainer.prepend(post);
@@ -73,21 +82,20 @@ function createNewPost(evt) {
 
 function openPopup(event) {
     if (event.currentTarget === popupEditProfileButton) {
-        popupEditProfile.classList.toggle('popup_opened');
+        popupEditProfile.classList.add('popup_opened');
         userName.value = profileUserName.textContent;
         description.value = profileDescription.textContent;
     }
     if (event.currentTarget === popupAddPhotoButton) {
-        popupCreatePost.classList.toggle('popup_opened');
-        postName.value = '';
-        imageLink.value = '';
+        popupCreatePost.classList.add('popup_opened');
+        formCreateNewPost.reset();
     }
 }
 
 popupEditProfileButton.addEventListener('click', openPopup);
 popupAddPhotoButton.addEventListener('click', openPopup);
 
-function formSubmitHandler(evt) {
+function editProfileInformation(evt) {
     evt.preventDefault();
     profileUserName.textContent = userName.value;
     profileDescription.textContent = description.value;
@@ -95,5 +103,5 @@ function formSubmitHandler(evt) {
     closePopup(popupEditProfile);
 }
 
-formElementProfile.addEventListener('submit', formSubmitHandler);
+formElementProfile.addEventListener('submit', editProfileInformation);
 formCreateNewPost.addEventListener('submit', createNewPost);
