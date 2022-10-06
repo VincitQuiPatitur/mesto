@@ -4,7 +4,6 @@
     top: 20px;
     background: url(../../../images/delete-button.svg) center center no-repeat;
     background-size: contain;
-    z-index: 3;
     cursor: pointer;
     width: 18px;
     height: 19px;

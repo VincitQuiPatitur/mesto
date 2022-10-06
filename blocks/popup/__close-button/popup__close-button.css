@@ -9,6 +9,8 @@
     border: none;
     transition: opacity 0.2s ease-in-out;
     cursor: pointer;
+    padding: 0;
+    border: 0;
 }
 
 .popup__close-button:hover {

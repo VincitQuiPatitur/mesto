@@ -3,9 +3,11 @@ const popupAddPhotoButton = document.querySelector('.profile__add-button');
 
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const popupCreatePost = document.querySelector('.popup_type_add-photo');
+const popupOpenImage = document.querySelector('.popup_type_image');
 
-const popupCloseProfileButton = document.querySelector('.popup__close-button_type_profile');
-const popupClosePostButton = document.querySelector('.popup__close-button_type_post');
+const popupCloseProfileButton = popupEditProfile.querySelector('.popup__close-button_type_profile');
+const popupClosePostButton = popupCreatePost.querySelector('.popup__close-button_type_post');
+const popupCloseImage = popupOpenImage.querySelector('.popup__close-button_type_image');
 
 const profileUserName = document.querySelector('.profile__user-name');
 const profileDescription = document.querySelector('.profile__description');
@@ -45,8 +47,15 @@ function closePopup(currentPopup) {
     currentPopup.classList.remove('popup_opened');
 }
 
-popupCloseProfileButton.addEventListener('click',function () {closePopup(popupEditProfile)});
-popupClosePostButton.addEventListener('click',function () {closePopup(popupCreatePost)});
+popupCloseProfileButton.addEventListener('click', function () {
+    closePopup(popupEditProfile)
+});
+popupClosePostButton.addEventListener('click', function () {
+    closePopup(popupCreatePost)
+});
+popupCloseImage.addEventListener('click', function () {
+    closePopup(popupOpenImage)
+})
 
 function formSubmitHandler(evt) {
     evt.preventDefault();
@@ -68,6 +77,12 @@ function addNewPost(postName, imageLink) {
     });
     post.querySelector('.post__delete').addEventListener('click', function (evt) {
         evt.target.closest('.post').remove();
+    });
+    post.querySelector('.post__image').addEventListener('click', function () {
+        popupOpenImage.classList.toggle('popup_opened');
+        popupOpenImage.querySelector('.popup__image').src = imageLink;
+        popupOpenImage.querySelector('.popup__image').alt = postName;
+        popupOpenImage.querySelector('.popup__caption').textContent = postName;
     });
 
     postContainer.prepend(post);
