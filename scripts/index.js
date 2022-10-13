@@ -15,11 +15,11 @@ const profileDescription = document.querySelector('.profile__description');
 const formElementProfile = document.forms.redaction;
 const formCreateNewPost = document.forms.creating;
 
-const userName = formElementProfile.elements.userName;
-const description = formElementProfile.elements.description;
+const userName = formElementProfile.elements.namedItem('userName');
+const description = formElementProfile.elements.namedItem('description');
 
-const postName = formCreateNewPost.elements.postName;
-const imageLink = formCreateNewPost.elements.imageLink;
+const postName = formCreateNewPost.elements.namedItem('postName');
+const imageLink = formCreateNewPost.elements.namedItem('imageLink');
 
 const popupImage = popupOpenImage.querySelector('.popup__image');
 const popupCaption = popupOpenImage.querySelector('.popup__caption');
