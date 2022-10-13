@@ -62,16 +62,23 @@ initialCards.forEach((card) => {
 
 function closePopup(currentPopup) {
     currentPopup.classList.remove('popup_opened');
+    document.removeEventListener('keydown', closeWithEsc);
 }
 
+const closeWithEsc  = (evt) => {
+    if (evt.key === "Escape") {
+        closePopup(document.querySelector('.popup_opened'));
+    }
+};
+
 popupCloseProfileButton.addEventListener('click', function () {
-    closePopup(popupEditProfile)
+    closePopup(popupEditProfile);
 });
 popupClosePostButton.addEventListener('click', function () {
-    closePopup(popupCreatePost)
+    closePopup(popupCreatePost);
 });
 popupCloseImage.addEventListener('click', function () {
-    closePopup(popupOpenImage)
+    closePopup(popupOpenImage);
 })
 
 function createNewPost(evt) {
@@ -84,12 +91,14 @@ function createNewPost(evt) {
 
 function openPopup(popup) {
     popup.classList.add('popup_opened');
+    document.addEventListener('keydown', closeWithEsc);
+
 }
 
 popupEditProfileButton.addEventListener('click', function () {
-    openPopup(popupEditProfile);
     userName.value = profileUserName.textContent;
     description.value = profileDescription.textContent;
+    openPopup(popupEditProfile);
 });
 popupAddPhotoButton.addEventListener('click', function () {
     openPopup(popupCreatePost);
