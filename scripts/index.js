@@ -12,14 +12,14 @@ const popupCloseImage = popupOpenImage.querySelector('.popup__close-button_type_
 const profileUserName = document.querySelector('.profile__user-name');
 const profileDescription = document.querySelector('.profile__description');
 
-const formElementProfile = popupEditProfile.querySelector('.popup__form_type_profile-redaction');
-const formCreateNewPost = popupCreatePost.querySelector('.popup__form_type_post-creating');
+const formElementProfile = document.forms.redaction;
+const formCreateNewPost = document.forms.creating;
 
-const userName = popupEditProfile.querySelector('.popup__input_type_user-name');
-const description = popupEditProfile.querySelector('.popup__input_type_description');
+const userName = formElementProfile.elements.userName;
+const description = formElementProfile.elements.description;
 
-const postName = popupCreatePost.querySelector('.popup__input_type_post-name');
-const imageLink = popupCreatePost.querySelector('.popup__input_type_link');
+const postName = formCreateNewPost.elements.postName;
+const imageLink = formCreateNewPost.elements.imageLink;
 
 const popupImage = popupOpenImage.querySelector('.popup__image');
 const popupCaption = popupOpenImage.querySelector('.popup__caption');

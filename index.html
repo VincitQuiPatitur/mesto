@@ -37,13 +37,16 @@
         <button class="popup__close-button popup__close-button_type_profile" type="button"
                 aria-label="Кнопка закрытия окна"></button>
         <form class="popup__form popup__form_type_profile-redaction" name="redaction">
-            <h3 class="popup__title">Редактировать профиль</h3>
-            <input type="text" placeholder="Имя пользователя" required name="userName"
-                   class="popup__input popup__input_type_user-name">
-            <input type="text" placeholder="Краткое описание" required name="description"
-                   class="popup__input popup__input_type_description">
-            <button class="popup__save-button popup__save-button_type_save-profile-info" type="submit">Сохранить
-            </button>
+            <fieldset class="popup__fieldset">
+                <h3 class="popup__title">Редактировать профиль</h3>
+                <input type="text" placeholder="Имя пользователя" required name="userName"
+                       class="popup__input popup__input_type_user-name" minlength="2" maxlength="40">
+                <input type="text" placeholder="Краткое описание" required name="description" minlength="2"
+                       maxlength="200"
+                       class="popup__input popup__input_type_description">
+                <button class="popup__save-button popup__save-button_type_save-profile-info" type="submit">Сохранить
+                </button>
+            </fieldset>
         </form>
     </div>
 </div>
@@ -52,12 +55,15 @@
         <button class="popup__close-button popup__close-button_type_post" type="button"
                 aria-label="Кнопка закрытия окна"></button>
         <form class="popup__form  popup__form_type_post-creating" name="creating">
-            <h3 class="popup__title">Новое место</h3>
-            <input type="text" placeholder="Название" required name="postName"
-                   class="popup__input popup__input_type_post-name">
-            <input type="text" placeholder="Ссылка на картинку" required name="imageLink"
-                   class="popup__input popup__input_type_link">
-            <button class="popup__save-button popup__save-button_type_create-new-post" type="submit">Создать</button>
+            <fieldset class="popup__fieldset">
+                <h3 class="popup__title">Новое место</h3>
+                <input type="text" placeholder="Название" required name="postName"
+                       class="popup__input popup__input_type_post-name">
+                <input type="text" placeholder="Ссылка на картинку" required name="imageLink"
+                       class="popup__input popup__input_type_link">
+                <button class="popup__save-button popup__save-button_type_create-new-post" type="submit">Создать
+                </button>
+            </fieldset>
         </form>
     </div>
 </div>
