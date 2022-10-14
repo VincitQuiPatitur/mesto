@@ -60,16 +60,23 @@ initialCards.forEach((card) => {
     postContainer.append(newCard);
 });
 
-function closePopup(currentPopup) {
-    currentPopup.classList.remove('popup_opened');
-    document.removeEventListener('keydown', closeWithEsc);
-}
-
 const closeWithEsc  = (evt) => {
     if (evt.key === "Escape") {
         closePopup(document.querySelector('.popup_opened'));
     }
 };
+
+const closeOutOfPopup = (evt) => {
+    if (evt.target.closest('.popup')) {
+        closePopup(evt.target);
+    }
+};
+
+function closePopup(currentPopup) {
+    currentPopup.classList.remove('popup_opened');
+    document.removeEventListener('keydown', closeWithEsc);
+    currentPopup.removeEventListener('click', closeOutOfPopup);
+}
 
 popupCloseProfileButton.addEventListener('click', function () {
     closePopup(popupEditProfile);
@@ -92,6 +99,7 @@ function createNewPost(evt) {
 function openPopup(popup) {
     popup.classList.add('popup_opened');
     document.addEventListener('keydown', closeWithEsc);
+    popup.addEventListener('click', closeOutOfPopup);
 
 }
 
