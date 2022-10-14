@@ -28,15 +28,6 @@ const postContainer = document.querySelector('.posts__container');
 
 const postTemplate = document.querySelector('.post__template').content;
 
-<<<<<<< HEAD
-function openPopup(popup) {
-    popup.classList.add('popup_opened');
-}
-
-function closePopup(currentPopup) {
-    currentPopup.classList.remove('popup_opened');
-}
-=======
 const popupList = document.querySelectorAll('.popup');
 
 enableValidation({
@@ -54,7 +45,6 @@ const closeWithEsc = (evt) => {
         closePopup(document.querySelector('.popup_opened'));
     }
 };
->>>>>>> develop
 
 function likeThePost(evt) {
     evt.target.classList.toggle('post__like_active');
@@ -83,29 +73,11 @@ function createCard(postName, imageLink) {
     return post;
 }
 
-function editProfileInformation(evt) {
-    evt.preventDefault();
-    profileUserName.textContent = userName.value;
-    profileDescription.textContent = description.value;
-
-    closePopup(popupEditProfile);
-}
-
-function createNewPost(evt) {
-    evt.preventDefault();
-    const newPost = createCard(postName.value, imageLink.value);
-    postContainer.prepend(newPost);
-
-    closePopup(popupCreatePost);
-}
-
 initialCards.forEach((card) => {
     const newCard = createCard(card.name, card.link);
     postContainer.append(newCard);
 });
 
-<<<<<<< HEAD
-=======
 popupList.forEach((listElement) => {
     listElement.addEventListener('click', function (elt) {
         if (elt.target.classList.contains('popup_opened')) {
@@ -119,7 +91,6 @@ function closePopup(currentPopup) {
     document.removeEventListener('keydown', closeWithEsc);
 }
 
->>>>>>> develop
 popupCloseProfileButton.addEventListener('click', function () {
     closePopup(popupEditProfile);
 });
@@ -130,8 +101,6 @@ popupCloseImage.addEventListener('click', function () {
     closePopup(popupOpenImage);
 });
 
-<<<<<<< HEAD
-=======
 function createNewPost(evt) {
     formCreateNewPost.querySelector('.popup__save-button').classList.add('popup__save-button_inactive');
     evt.preventDefault();
@@ -146,7 +115,6 @@ function openPopup(popup) {
     document.addEventListener('keydown', closeWithEsc);
 }
 
->>>>>>> develop
 popupEditProfileButton.addEventListener('click', function () {
     userName.value = profileUserName.textContent;
     description.value = profileDescription.textContent;
@@ -158,8 +126,6 @@ popupAddPhotoButton.addEventListener('click', function () {
     formCreateNewPost.reset();
 });
 
-<<<<<<< HEAD
-=======
 function editProfileInformation(evt) {
     formElementProfile.querySelector('.popup__save-button').classList.add('popup__save-button_inactive');
     evt.preventDefault();
@@ -169,6 +135,5 @@ function editProfileInformation(evt) {
     closePopup(popupEditProfile);
 }
 
->>>>>>> develop
 formElementProfile.addEventListener('submit', editProfileInformation);
 formCreateNewPost.addEventListener('submit', createNewPost);
