@@ -5,10 +5,6 @@ const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const popupCreatePost = document.querySelector('.popup_type_add-photo');
 const popupOpenImage = document.querySelector('.popup_type_image');
 
-const popupCloseProfileButton = popupEditProfile.querySelector('.popup__close-button_type_profile');
-const popupClosePostButton = popupCreatePost.querySelector('.popup__close-button_type_post');
-const popupCloseImage = popupOpenImage.querySelector('.popup__close-button_type_image');
-
 const profileUserName = document.querySelector('.profile__user-name');
 const profileDescription = document.querySelector('.profile__description');
 
@@ -30,14 +26,35 @@ const postTemplate = document.querySelector('.post__template').content;
 
 const popupList = document.querySelectorAll('.popup');
 
-enableValidation({
+const elements = {
     formSelector: '.popup__form',
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__save-button',
     inactiveButtonClass: 'popup__save-button_inactive',
     inputErrorClass: 'popup__input_type_error',
     errorClass: 'popup__input-error_active',
-    fieldSelector: '.popup__fieldset'
+    fieldSelector: '.popup__fieldset',
+    popupOpenState: 'popup_opened',
+    closeButtonSelector: 'popup__close-button',
+    postLikeState: 'post__like_active'
+};
+
+enableValidation(elements);
+
+function closePopup(currentPopup) {
+    currentPopup.classList.remove(elements.popupOpenState);
+    document.removeEventListener('keydown', closeWithEsc);
+}
+
+popupList.forEach((listElement) => {
+    listElement.addEventListener('mousedown',  (evt) => {
+        if (evt.target.classList.contains(elements.popupOpenState)) {
+            closePopup(listElement);
+        }
+        if (evt.target.classList.contains(elements.closeButtonSelector)) {
+            closePopup(listElement);
+        }
+    });
 });
 
 const closeWithEsc = (evt) => {
@@ -47,7 +64,7 @@ const closeWithEsc = (evt) => {
 };
 
 function likeThePost(evt) {
-    evt.target.classList.toggle('post__like_active');
+    evt.target.classList.toggle(elements.postLikeState);
 }
 
 function deleteThePost(evt) {
@@ -78,40 +95,19 @@ initialCards.forEach((card) => {
     postContainer.append(newCard);
 });
 
-popupList.forEach((listElement) => {
-    listElement.addEventListener('click', function (elt) {
-        if (elt.target.classList.contains('popup_opened')) {
-            closePopup(listElement);
-        }
-    });
-});
-
-function closePopup(currentPopup) {
-    currentPopup.classList.remove('popup_opened');
-    document.removeEventListener('keydown', closeWithEsc);
-}
-
-popupCloseProfileButton.addEventListener('click', function () {
-    closePopup(popupEditProfile);
-});
-popupClosePostButton.addEventListener('click', function () {
-    closePopup(popupCreatePost);
-});
-popupCloseImage.addEventListener('click', function () {
-    closePopup(popupOpenImage);
-});
-
 function createNewPost(evt) {
-    formCreateNewPost.querySelector('.popup__save-button').classList.add('popup__save-button_inactive');
+    evt.submitter.classList.add(elements.inactiveButtonClass);
+    evt.submitter.disabled = true;
     evt.preventDefault();
     const newPost = createCard(postName.value, imageLink.value);
     postContainer.prepend(newPost);
+    formCreateNewPost.reset();
 
     closePopup(popupCreatePost);
 }
 
 function openPopup(popup) {
-    popup.classList.add('popup_opened');
+    popup.classList.add(elements.popupOpenState);
     document.addEventListener('keydown', closeWithEsc);
 }
 
@@ -123,11 +119,9 @@ popupEditProfileButton.addEventListener('click', function () {
 
 popupAddPhotoButton.addEventListener('click', function () {
     openPopup(popupCreatePost);
-    formCreateNewPost.reset();
 });
 
 function editProfileInformation(evt) {
-    formElementProfile.querySelector('.popup__save-button').classList.add('popup__save-button_inactive');
     evt.preventDefault();
     profileUserName.textContent = userName.value;
     profileDescription.textContent = description.value;
