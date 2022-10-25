@@ -96,8 +96,6 @@ initialCards.forEach((card) => {
 });
 
 function createNewPost(evt) {
-    evt.submitter.classList.add(elements.inactiveButtonClass);
-    evt.submitter.disabled = true;
     evt.preventDefault();
     const newPost = createCard(postName.value, imageLink.value);
     postContainer.prepend(newPost);

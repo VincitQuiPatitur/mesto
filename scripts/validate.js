@@ -55,13 +55,15 @@ const enableValidation = (settings) => {
     const formList = Array.from(document.querySelectorAll(settings.formSelector));
 
     formList.forEach((formElement) => {
-        formElement.addEventListener('submit', function (evt) {
+        /*formElement.addEventListener('submit', function (evt) {
             evt.preventDefault();
-        });
-        const fieldsetList = Array.from(formElement.querySelectorAll(settings.fieldSelector));
+        });*/
+        setEventListeners(formElement, settings);
+
+        /*const fieldsetList = Array.from(formElement.querySelectorAll(settings.fieldSelector));
 
         fieldsetList.forEach((fieldset) => {
             setEventListeners(fieldset, settings);
-        });
+        });*/
     });
 };
