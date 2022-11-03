@@ -1,12 +1,12 @@
 import {Card} from './Card.js'
-/*import {FormValidator} from "./FormValidator";*/
+import {FormValidator} from "./FormValidator.js";
 
 const popupEditProfileButton = document.querySelector('.profile__edit-button');
 const popupAddPhotoButton = document.querySelector('.profile__add-button');
 
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const popupCreatePost = document.querySelector('.popup_type_add-photo');
-export const popupOpenImage = document.querySelector('.popup_type_image');
+const popupOpenImage = document.querySelector('.popup_type_image');
 
 const profileUserName = document.querySelector('.profile__user-name');
 const profileDescription = document.querySelector('.profile__description');
@@ -20,16 +20,14 @@ const description = formElementProfile.elements.namedItem('description');
 const postName = formCreateNewPost.elements.namedItem('postName');
 const imageLink = formCreateNewPost.elements.namedItem('imageLink');
 
-export const popupImage = popupOpenImage.querySelector('.popup__image');
-export const popupCaption = popupOpenImage.querySelector('.popup__caption');
+const popupImage = popupOpenImage.querySelector('.popup__image');
+const popupCaption = popupOpenImage.querySelector('.popup__caption');
 
 const postContainer = document.querySelector('.posts__container');
 
-//const postTemplate = document.querySelector('.post__template').content;
-
 const popupList = document.querySelectorAll('.popup');
 
-export const elements = {
+const elements = {
     formSelector: '.popup__form',
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__save-button',
@@ -41,7 +39,11 @@ export const elements = {
     closeButtonSelector: 'popup__close-button'
 };
 
-enableValidation(elements);
+const formElementProfileValidation = new FormValidator(formElementProfile, elements)
+const formCreateNewPostValidation = new FormValidator(formCreateNewPost, elements);
+
+formElementProfileValidation.enableValidation();
+formCreateNewPostValidation.enableValidation();
 
 function closePopup(currentPopup) {
     currentPopup.classList.remove(elements.popupOpenState);
@@ -49,7 +51,7 @@ function closePopup(currentPopup) {
 }
 
 popupList.forEach((listElement) => {
-    listElement.addEventListener('mousedown',  (evt) => {
+    listElement.addEventListener('mousedown', (evt) => {
         if (evt.target.classList.contains(elements.popupOpenState)) {
             closePopup(listElement);
         }
@@ -65,38 +67,8 @@ const closeWithEsc = (evt) => {
     }
 };
 
-/*function likeThePost(evt) {
-    evt.target.classList.toggle(elements.postLikeState);
-}
-
-function deleteThePost(evt) {
-    evt.target.closest('.post').remove();
-}*/
-
-function openImage(imageLink, postName) {
-    openPopup(popupOpenImage);
-    popupImage.src = imageLink;
-    popupImage.alt = postName;
-    popupCaption.textContent = postName;
-}
-
-/*function createCard(postName, imageLink) {
-    const post = postTemplate.querySelector('.post').cloneNode(true);
-    const image = post.querySelector('.post__image');
-
-    post.querySelector('.post__subscription').textContent = postName;
-    image.src = imageLink;
-    image.alt = postName;
-
-    post.querySelector('.post__like').addEventListener('click', likeThePost);
-    post.querySelector('.post__delete').addEventListener('click', deleteThePost);
-    image.addEventListener('click', openImage);
-
-    return post;
-}*/
-
 function createCard(name, link) {
-    const cardItem  = new Card(name, link, '.post__template', openImage);
+    const cardItem = new Card(name, link, '.post__template', openImage);
 
     return cardItem.createCard();
 }
@@ -115,9 +87,16 @@ function createNewPost(evt) {
     closePopup(popupCreatePost);
 }
 
-export function openPopup(popup) {
+function openPopup(popup) {
     popup.classList.add(elements.popupOpenState);
     document.addEventListener('keydown', closeWithEsc);
+}
+
+function openImage(imageLink, postName) {
+    openPopup(popupOpenImage);
+    popupImage.src = imageLink;
+    popupImage.alt = postName;
+    popupCaption.textContent = postName;
 }
 
 popupEditProfileButton.addEventListener('click', function () {
