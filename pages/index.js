@@ -2,7 +2,7 @@ import { popupEditProfileButton, popupAddPhotoButton, popupEditProfile, popupCre
 import { Card } from '../components/Card.js'
 import { FormValidator } from "../components/FormValidator.js";
 import Section from "../components/Section.js";
-import Popup from "../components/Popup.js";
+import PopupWithImage from "../components/PopupWithImage.js";
 
 const formElementProfileValidation = new FormValidator(formElementProfile, elements)
 const formCreateNewPostValidation = new FormValidator(formCreateNewPost, elements);
@@ -19,15 +19,27 @@ const cardList = new Section({
     }
 }, postContainer);
 
-const popupOpen = new Popup(popupOpenImage);
-popupOpen.setEventListeners();
+const popupWithImage = new PopupWithImage(popupOpenImage);
+popupWithImage.setEventListeners();
 
-function closePopup(currentPopup) {
-    currentPopup.classList.remove(elements.popupOpenState);
-    document.removeEventListener('keydown', closeWithEsc);
+const openImage = (imageLink, postName) => {
+    popupWithImage.open(imageLink, postName);
 }
 
-popupList.forEach((listElement) => {
+function createCard(name, link) {
+    const cardItem = new Card(name, link, '.post__template', openImage);
+
+    return cardItem.createCard();
+}
+
+
+
+/*function closePopup(currentPopup) {
+    currentPopup.classList.remove(elements.popupOpenState);
+    document.removeEventListener('keydown', closeWithEsc);
+}*/
+
+/*popupList.forEach((listElement) => {
     listElement.addEventListener('mousedown', (evt) => {
         if (evt.target.classList.contains(elements.popupOpenState)) {
             closePopup(listElement);
@@ -36,19 +48,15 @@ popupList.forEach((listElement) => {
             closePopup(listElement);
         }
     });
-});
+});*/
 
-const closeWithEsc = (evt) => {
+/*const closeWithEsc = (evt) => {
     if (evt.key === 'Escape') {
         closePopup(document.querySelector('.popup_opened'));
     }
-};
+};*/
 
-function createCard(name, link) {
-    const cardItem = new Card(name, link, '.post__template', openImage);
 
-    return cardItem.createCard();
-}
 
 function createNewPost(evt) {
     evt.preventDefault();
@@ -63,7 +71,6 @@ function openPopup(popup) {
     popup.classList.add(elements.popupOpenState);
     document.addEventListener('keydown', closeWithEsc);
 }
-
 /*function openImage(imageLink, postName) {
     openPopup(popupOpenImage);
     popupImage.src = imageLink;
