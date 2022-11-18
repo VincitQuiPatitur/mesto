@@ -2,6 +2,7 @@ import { popupEditProfileButton, popupAddPhotoButton, popupEditProfile, popupCre
 import { Card } from '../components/Card.js'
 import { FormValidator } from "../components/FormValidator.js";
 import Section from "../components/Section.js";
+import Popup from "../components/Popup.js";
 
 const formElementProfileValidation = new FormValidator(formElementProfile, elements)
 const formCreateNewPostValidation = new FormValidator(formCreateNewPost, elements);
@@ -18,6 +19,8 @@ const cardList = new Section({
     }
 }, postContainer);
 
+const popupOpen = new Popup(popupOpenImage);
+popupOpen.setEventListeners();
 
 function closePopup(currentPopup) {
     currentPopup.classList.remove(elements.popupOpenState);
@@ -47,11 +50,6 @@ function createCard(name, link) {
     return cardItem.createCard();
 }
 
-initialCards.forEach((card) => {
-    const cardElement = createCard(card.name, card.link);
-    postContainer.append(cardElement);
-});
-
 function createNewPost(evt) {
     evt.preventDefault();
     const newPost = createCard(postName.value, imageLink.value);
@@ -66,12 +64,12 @@ function openPopup(popup) {
     document.addEventListener('keydown', closeWithEsc);
 }
 
-function openImage(imageLink, postName) {
+/*function openImage(imageLink, postName) {
     openPopup(popupOpenImage);
     popupImage.src = imageLink;
     popupImage.alt = postName;
     popupCaption.textContent = postName;
-}
+}*/
 
 popupEditProfileButton.addEventListener('click', function () {
     userName.value = profileUserName.textContent;
