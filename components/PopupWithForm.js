@@ -4,11 +4,12 @@ import { elements } from "../utils/constants.js";
 export default class PopupWithForm extends Popup {
     constructor(popupSelector, formSubmitCallback) {
         super(popupSelector);
-        this._popupSelector = popupSelector;
         this._formSubmitCallback = formSubmitCallback;
+        //console.log(this._formSubmitCallback);
         this._form = this._popupSelector.querySelector(elements.formSelector);
+        //console.log(this._form);
         this._popupInputs = this._popupSelector.querySelectorAll(elements.inputSelector);
-        console.log(this._formSubmitCallback);
+        //console.log(this._popupInputs);
     }
 
     _getInputValues() {
@@ -16,7 +17,7 @@ export default class PopupWithForm extends Popup {
         this._popupInputs.forEach(input => {
             inputValues[input.name] = input.value;
         });
-
+        console.log(inputValues);
         return inputValues;
     }
 

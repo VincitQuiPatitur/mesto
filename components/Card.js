@@ -1,6 +1,6 @@
-export class Card {
-    constructor(name, link, templateSelector, openImage) {
-        this._postName = name;
+export default class Card {
+    constructor( name, link, templateSelector, openImage) {
+        this._cardName = name;
         this._imageLink = link;
         this._templateSelector = templateSelector;
         this._openImage = openImage;
@@ -15,41 +15,41 @@ export class Card {
     }
 
     _handleLikeThePost() {
-        this._post.querySelector('.post__like').classList.toggle('post__like_active');
+        this._card.querySelector('.post__like').classList.toggle('post__like_active');
     }
 
     _handleDeleteThePost() {
-        this._post.closest('.post').remove();
+        this._card.closest('.post').remove();
     }
 
     _handleOpenImage() {
-        this._openImage(this._imageLink, this._postName);
+        this._openImage(this._imageLink, this._cardName);
     }
 
     _setEventListeners() {
-        this._post.querySelector('.post__like').addEventListener('click', () => {
+        this._card.querySelector('.post__like').addEventListener('click', () => {
             this._handleLikeThePost();
         });
 
-        this._post.querySelector('.post__delete').addEventListener('click', () => {
+        this._card.querySelector('.post__delete').addEventListener('click', () => {
             this._handleDeleteThePost();
         });
-        this._post.querySelector('.post__image').addEventListener('click', () => {
+        this._card.querySelector('.post__image').addEventListener('click', () => {
             this._handleOpenImage();
         });
     }
 
     createCard() {
-        this._post = this._getPostTemplate();
+        this._card = this._getPostTemplate();
 
-        this._postImage = this._post.querySelector('.post__image');
-        this._postImage.src = this._imageLink;
-        this._postImage.alt = this._postName;
+        this._cardImage = this._card.querySelector('.post__image');
+        this._cardImage.src = this._imageLink;
+        this._cardImage.alt = this._cardName;
 
-        this._post.querySelector('.post__subscription').textContent = this._postName;
+        this._card.querySelector('.post__subscription').textContent = this._cardName;
 
         this._setEventListeners();
 
-        return this._post;
+        return this._card;
     }
 }

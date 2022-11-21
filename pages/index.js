@@ -1,9 +1,30 @@
-import { popupEditProfileButton, popupAddPhotoButton, popupEditProfile, popupCreatePost, popupOpenImage, profileUserName, profileDescription, formElementProfile, formCreateNewPost, userName, description, postName, imageLink, popupImage, popupCaption, postContainer, popupList, elements, initialCards } from '../utils/constants.js';
-import { Card } from '../components/Card.js'
-import { FormValidator } from "../components/FormValidator.js";
+import {
+    popupEditProfileButton,
+    popupAddPhotoButton,
+    popupEditProfile,
+    popupCreatePost,
+    popupOpenImage,
+    profileUserName,
+    profileDescription,
+    formElementProfile,
+    formCreateNewPost,
+    userName,
+    description,
+    postName,
+    imageLink,
+    popupImage,
+    popupCaption,
+    postContainer,
+    popupList,
+    elements,
+    initialCards
+} from '../utils/constants.js';
+import Card from '../components/Card.js'
+import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import UserInfo from "../components/UserInfo.js";
 
 const formElementProfileValidation = new FormValidator(formElementProfile, elements)
 const formCreateNewPostValidation = new FormValidator(formCreateNewPost, elements);
@@ -11,22 +32,37 @@ const formCreateNewPostValidation = new FormValidator(formCreateNewPost, element
 formElementProfileValidation.enableValidation();
 formCreateNewPostValidation.enableValidation();
 
+const openImage = (imageLink, postName) => {
+    popupWithImage.open(imageLink, postName);
+}
+
+const generateCard = (name, link) => {
+    const cardItem = new Card(name, link, '.post__template', openImage);
+
+    return cardItem.createCard();
+}
+
 const cardList = new Section({
     items: initialCards,
-    renderer: (card) => {
-        const cardElement = createCard(card.name, card.link);
-        postContainer.append(cardElement);
+    renderer: (data) => {
+        const cardElement = generateCard(data.name, data.link);
         cardList.addItem(cardElement);
     }
 }, postContainer);
 
-const submitCreateNewPost = () => {
+cardList.renderItems();
 
+//////////////////////////////////
+
+const userInfo = new UserInfo({userName: profileUserName, description: profileDescription});
+
+const handleEditProfileInformation = (info) => {
+    userInfo.setUserInfo(info);
 };
 
 const handleCreateNewPost = (cardObj) => {
     //popupAddCard.open();
-    const card = createCard(cardObj.name, cardObj.link);
+    const card = generateCard(cardObj.name, cardObj.link);
     cardList.addItem(card);
     popupAddCard.close();
 };
@@ -34,24 +70,23 @@ const handleCreateNewPost = (cardObj) => {
 const popupWithImage = new PopupWithImage(popupOpenImage);
 popupWithImage.setEventListeners();
 
-const popupProfileEdit = new PopupWithForm(popupEditProfile, submitCreateNewPost);
+const popupProfileEdit = new PopupWithForm(popupEditProfile, handleEditProfileInformation);
 popupProfileEdit.setEventListeners();
 
 const popupAddCard = new PopupWithForm(popupCreatePost, handleCreateNewPost);
 popupAddCard.setEventListeners();
 
+//////////
+popupEditProfileButton.addEventListener('click', () => {
+    userName.value = userInfo.getUserInfo().profileName;
+    description.value = userInfo.getUserInfo().profileJob;
+    popupProfileEdit.open();
+    //openPopup(popupEditProfile);
+});
 
-const openImage = (imageLink, postName) => {
-    popupWithImage.open(imageLink, postName);
-}
-
-const createCard = (name, link) => {
-    const cardItem = new Card(name, link, '.post__template', openImage);
-
-    return cardItem.createCard();
-}
-
-
+popupAddPhotoButton.addEventListener('click', () => {
+    popupAddCard.open();
+});
 
 /*function closePopup(currentPopup) {
     currentPopup.classList.remove(elements.popupOpenState);
@@ -87,17 +122,6 @@ const createCard = (name, link) => {
     popupCaption.textContent = postName;
 }*/
 
-popupEditProfileButton.addEventListener('click', function () {
-    userName.value = profileUserName.textContent;
-    description.value = profileDescription.textContent;
-    popupProfileEdit.open();
-    //openPopup(popupEditProfile);
-});
-
-popupAddPhotoButton.addEventListener('click', function () {
-    popupAddCard.open();
-});
-
 /*function handleEditProfileInformation() {
     //evt.preventDefault();
     profileUserName.textContent = userName.value;
@@ -116,5 +140,3 @@ function handleCreateNewPost() {
 
 formElementProfile.addEventListener('submit', handleEditProfileInformation);
 formCreateNewPost.addEventListener('submit', handleCreateNewPost);*/
-
-cardList.renderItems();
