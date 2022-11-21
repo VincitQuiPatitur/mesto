@@ -14,15 +14,11 @@ export const formCreateNewPost = document.forms.creating;
 export const userName = formElementProfile.elements.namedItem('userName');
 export const description = formElementProfile.elements.namedItem('description');
 
-export const postName = formCreateNewPost.elements.namedItem('postName');
-export const imageLink = formCreateNewPost.elements.namedItem('imageLink');
-
 export const popupImage = popupOpenImage.querySelector('.popup__image');
 export const popupCaption = popupOpenImage.querySelector('.popup__caption');
 
 export const postContainer = document.querySelector('.posts__container');
 
-export const popupList = document.querySelectorAll('.popup');
 
 export const elements = {
     formSelector: '.popup__form',

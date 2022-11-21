@@ -10,12 +10,7 @@ import {
     formCreateNewPost,
     userName,
     description,
-    postName,
-    imageLink,
-    popupImage,
-    popupCaption,
     postContainer,
-    popupList,
     elements,
     initialCards
 } from '../utils/constants.js';
@@ -38,7 +33,6 @@ const openImage = (imageLink, postName) => {
 
 const generateCard = (name, link) => {
     const cardItem = new Card(name, link, '.post__template', openImage);
-
     return cardItem.createCard();
 }
 
@@ -50,10 +44,6 @@ const cardList = new Section({
     }
 }, postContainer);
 
-cardList.renderItems();
-
-//////////////////////////////////
-
 const userInfo = new UserInfo({userName: profileUserName, description: profileDescription});
 
 const handleEditProfileInformation = (info) => {
@@ -64,6 +54,7 @@ const handleCreateNewPost = (cardObj) => {
     //popupAddCard.open();
     const card = generateCard(cardObj.name, cardObj.link);
     cardList.addItem(card);
+    console.log(cardList);
     popupAddCard.close();
 };
 
@@ -76,17 +67,17 @@ popupProfileEdit.setEventListeners();
 const popupAddCard = new PopupWithForm(popupCreatePost, handleCreateNewPost);
 popupAddCard.setEventListeners();
 
-//////////
 popupEditProfileButton.addEventListener('click', () => {
     userName.value = userInfo.getUserInfo().profileName;
     description.value = userInfo.getUserInfo().profileJob;
     popupProfileEdit.open();
-    //openPopup(popupEditProfile);
 });
 
 popupAddPhotoButton.addEventListener('click', () => {
     popupAddCard.open();
 });
+
+cardList.renderItems();
 
 /*function closePopup(currentPopup) {
     currentPopup.classList.remove(elements.popupOpenState);
