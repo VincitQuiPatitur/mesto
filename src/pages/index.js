@@ -11,6 +11,8 @@ import {
     formCreateNewPost,
     userName,
     description,
+    popupImage,
+    popupCaption,
     postContainer,
     elements,
     initialCards
@@ -57,22 +59,24 @@ const handleCreateNewPost = (cardObj) => {
     popupAddCard.close();
 };
 
-const popupWithImage = new PopupWithImage(popupOpenImage);
+const popupWithImage = new PopupWithImage(popupOpenImage, popupImage, popupCaption, elements);
 popupWithImage.setEventListeners();
 
-const popupProfileEdit = new PopupWithForm(popupEditProfile, handleEditProfileInformation);
+const popupProfileEdit = new PopupWithForm(popupEditProfile, handleEditProfileInformation, elements);
 popupProfileEdit.setEventListeners();
 
-const popupAddCard = new PopupWithForm(popupCreatePost, handleCreateNewPost);
+const popupAddCard = new PopupWithForm(popupCreatePost, handleCreateNewPost, elements);
 popupAddCard.setEventListeners();
 
 popupEditProfileButton.addEventListener('click', () => {
     userName.value = userInfo.getUserInfo().profileName;
     description.value = userInfo.getUserInfo().profileJob;
+    formElementProfileValidation.hideErrors();
     popupProfileEdit.open();
 });
 
 popupAddPhotoButton.addEventListener('click', () => {
+    formCreateNewPostValidation.hideErrors();
     popupAddCard.open();
 });
 

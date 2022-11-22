@@ -60,4 +60,10 @@ export default class FormValidator {
     enableValidation() {
         this._setEventListeners();
     }
+
+    hideErrors() {
+        this._inputList.forEach(input => {
+            this._hideInputError(input);
+        });
+    }
 }

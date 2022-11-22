@@ -1,12 +1,13 @@
 import Popup from "./Popup.js";
-import { elements } from "../utils/constants.js";
 
 export default class PopupWithForm extends Popup {
-    constructor(popupSelector, formSubmitCallback) {
-        super(popupSelector);
+    constructor(popupElement, formSubmitCallback, elements) {
+        super(popupElement);
+        //super(elements);
+        this._elements = elements;
         this._formSubmitCallback = formSubmitCallback;
-        this._form = this._popupSelector.querySelector(elements.formSelector);
-        this._popupInputs = this._popupSelector.querySelectorAll(elements.inputSelector);
+        this._form = this._popupElement.querySelector(this._elements.formSelector);
+        this._popupInputs = this._popupElement.querySelectorAll(this._elements.inputSelector);
     }
 
     _getInputValues() {

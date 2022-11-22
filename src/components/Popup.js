@@ -1,17 +1,17 @@
-import { elements } from "../utils/constants.js";
-
 export default class Popup {
-    constructor(popupSelector) {
-        this._popupSelector = popupSelector;
+    constructor(popupElement, elements) {
+        this._popupElement = popupElement;
+        this._elements = elements;
+        this._handleEscClose = this._handleEscClose.bind(this);
     }
 
     open() {
-        this._popupSelector.classList.add(elements.popupOpenState);
+        this._popupElement.classList.add(this._elements.popupOpenState);
         document.addEventListener('keydown', this._handleEscClose);
     }
 
     close() {
-        this._popupSelector.classList.remove(elements.popupOpenState);
+        this._popupElement.classList.remove(this._elements.popupOpenState);
         document.removeEventListener('keydown', this._handleEscClose);
     }
 
@@ -22,11 +22,11 @@ export default class Popup {
     }
 
     setEventListeners(){
-        this._popupSelector.addEventListener('mousedown', (evt) => {
-            if (evt.target.classList.contains(elements.popupOpenState)) {
+        this._popupElement.addEventListener('mousedown', (evt) => {
+            if (evt.target.classList.contains(this._elements.popupOpenState)) {
                 this.close();
             }
-            if (evt.target.classList.contains(elements.closeButtonSelector)) {
+            if (evt.target.classList.contains(this._elements.closeButtonSelector)) {
                 this.close();
             }
         });

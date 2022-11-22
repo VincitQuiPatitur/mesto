@@ -1,11 +1,11 @@
 import Popup from "./Popup.js";
-import { popupImage, popupCaption } from "../utils/constants.js";
 
 export default class PopupWithImage extends Popup {
-    constructor(popupSelector) {
-        super(popupSelector);
+    constructor(popupElement, popupImage, popupCaption, elements) {
+        super(popupElement);
         this._popupImage = popupImage;
         this._popupCaption = popupCaption;
+        this._elements = elements;
     }
 
     open(imageLink, postName) {
