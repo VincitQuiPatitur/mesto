@@ -11,8 +11,6 @@ import {
     formCreateNewPost,
     userName,
     description,
-    popupImage,
-    popupCaption,
     postContainer,
     elements,
     initialCards
@@ -59,7 +57,7 @@ const handleCreateNewPost = (cardObj) => {
     popupAddCard.close();
 };
 
-const popupWithImage = new PopupWithImage(popupOpenImage, popupImage, popupCaption, elements);
+const popupWithImage = new PopupWithImage(popupOpenImage, elements);
 popupWithImage.setEventListeners();
 
 const popupProfileEdit = new PopupWithForm(popupEditProfile, handleEditProfileInformation, elements);

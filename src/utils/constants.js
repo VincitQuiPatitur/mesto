@@ -14,9 +14,6 @@ export const formCreateNewPost = document.forms.creating;
 export const userName = formElementProfile.elements.namedItem('userName');
 export const description = formElementProfile.elements.namedItem('description');
 
-export const popupImage = popupOpenImage.querySelector('.popup__image');
-export const popupCaption = popupOpenImage.querySelector('.popup__caption');
-
 export const postContainer = document.querySelector('.posts__container');
 
 
@@ -27,7 +24,6 @@ export const elements = {
     inactiveButtonClass: 'popup__save-button_inactive',
     inputErrorClass: 'popup__input_type_error',
     errorClass: 'popup__input-error_active',
-    fieldSelector: '.popup__fieldset',
     popupOpenState: 'popup_opened',
     closeButtonSelector: 'popup__close-button'
 };
