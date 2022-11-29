@@ -13,7 +13,6 @@ import {
     description,
     postContainer,
     elements,
-    initialCards
 } from '../utils/constants.js';
 import Card from '../components/Card.js'
 import FormValidator from "../components/FormValidator.js";
@@ -21,6 +20,7 @@ import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
+import Api from "../components/Api.js";
 
 const formElementProfileValidation = new FormValidator(formElementProfile, elements)
 const formCreateNewPostValidation = new FormValidator(formCreateNewPost, elements);
@@ -38,7 +38,7 @@ const generateCard = (name, link) => {
 }
 
 const cardList = new Section({
-    items: initialCards,
+    //items: initialCards,
     renderer: (data) => {
         const cardElement = generateCard(data.name, data.link);
         cardList.addItem(cardElement);
@@ -78,4 +78,19 @@ popupAddPhotoButton.addEventListener('click', () => {
     popupAddCard.open();
 });
 
-cardList.renderItems();
+const api = new Api({
+    baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-55',
+    headers: {
+        authorization: '5edfebd6-970d-4762-80ff-378f56c29b55',
+        'Content-Type': 'application/json'
+    }
+});
+
+api.getInitialCards()
+    .then((result) =>{
+        cardList.renderItems(result);
+    })
+    .catch(error => {
+        console.log(error);
+    })
+
