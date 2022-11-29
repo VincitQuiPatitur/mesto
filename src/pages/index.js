@@ -7,13 +7,14 @@ import {
     popupOpenImage,
     profileUserName,
     profileDescription,
+    profileAvatar,
     formElementProfile,
     formCreateNewPost,
     userName,
     description,
     postContainer,
-    elements,
-} from '../utils/constants.js';
+    elements
+    } from '../utils/constants.js';
 import Card from '../components/Card.js'
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
@@ -45,7 +46,7 @@ const cardList = new Section({
     }
 }, postContainer);
 
-const userInfo = new UserInfo({userName: profileUserName, description: profileDescription});
+const userInfo = new UserInfo({userName: profileUserName, description: profileDescription, avatar: profileAvatar});
 
 const handleEditProfileInformation = (info) => {
     userInfo.setUserInfo(info);
@@ -92,5 +93,13 @@ api.getInitialCards()
     })
     .catch(error => {
         console.log(error);
+    });
+api.getUserInfo()
+    .then(result => {
+        console.log(result);
+        userInfo.setUserInfo(result);
     })
+    .catch(error => {
+        console.log(error);
+    });
 

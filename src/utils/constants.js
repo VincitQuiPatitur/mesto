@@ -8,6 +8,8 @@ export const popupOpenImage = document.querySelector('.popup_type_image');
 export const profileUserName = document.querySelector('.profile__user-name');
 export const profileDescription = document.querySelector('.profile__description');
 
+export const profileAvatar = document.querySelector('.profile__avatar');
+
 export const formElementProfile = document.forms.redaction;
 export const formCreateNewPost = document.forms.creating;
 
