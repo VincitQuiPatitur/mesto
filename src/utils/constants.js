@@ -18,6 +18,7 @@ export const description = formElementProfile.elements.namedItem('description');
 
 export const postContainer = document.querySelector('.posts__container');
 
+export const likeCounter = document.querySelector('.post__like-count');
 
 export const elements = {
     formSelector: '.popup__form',

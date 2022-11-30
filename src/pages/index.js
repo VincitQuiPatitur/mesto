@@ -13,6 +13,7 @@ import {
     userName,
     description,
     postContainer,
+    likeCounter,
     elements
     } from '../utils/constants.js';
 import Card from '../components/Card.js'
@@ -40,7 +41,7 @@ const generateCard = (name, link, like) => {
 
 const cardList = new Section({
     renderer: (data) => {
-        const cardElement = generateCard(data.name, data.link, data.like);
+        const cardElement = generateCard(data.name, data.link);
         cardList.addItem(cardElement);
     }
 }, postContainer);
@@ -58,7 +59,7 @@ const handleEditProfileInformation = (info) => {
 const handleCreateNewPost = (cardObj) => {
     const card = api.addNewCard(cardObj)
         .then(card => {
-            cardList.addItem(generateCard(card.name, card.link, card.like));
+            cardList.addItem(generateCard(card.name, card.link));
         });
     popupAddCard.close();
 };
