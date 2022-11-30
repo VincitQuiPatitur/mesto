@@ -50,6 +50,10 @@ const userInfo = new UserInfo({userName: profileUserName, description: profileDe
 
 const handleEditProfileInformation = (info) => {
     userInfo.setUserInfo(info);
+    api.setUserInfo(info)
+        .then(result => {
+            console.log(result);
+        })
 };
 
 const handleCreateNewPost = (cardObj) => {
@@ -70,6 +74,8 @@ popupAddCard.setEventListeners();
 popupEditProfileButton.addEventListener('click', () => {
     userName.value = userInfo.getUserInfo().profileName;
     description.value = userInfo.getUserInfo().profileJob;
+    profileAvatar.src = userInfo.getUserInfo().avatar;
+
     formElementProfileValidation.hideErrors();
     popupProfileEdit.open();
 });
@@ -96,7 +102,6 @@ api.getInitialCards()
     });
 api.getUserInfo()
     .then(result => {
-        console.log(result);
         userInfo.setUserInfo(result);
     })
     .catch(error => {
