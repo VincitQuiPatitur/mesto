@@ -39,7 +39,6 @@ const generateCard = (name, link) => {
 }
 
 const cardList = new Section({
-    //items: initialCards,
     renderer: (data) => {
         const cardElement = generateCard(data.name, data.link);
         cardList.addItem(cardElement);
@@ -57,8 +56,10 @@ const handleEditProfileInformation = (info) => {
 };
 
 const handleCreateNewPost = (cardObj) => {
-    const card = generateCard(cardObj.name, cardObj.link);
-    cardList.addItem(card);
+    const card = api.addNewCard(cardObj)
+        .then(card => {
+            cardList.addItem(generateCard(card.name, card.link));
+        });
     popupAddCard.close();
 };
 

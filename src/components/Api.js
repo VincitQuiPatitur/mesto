@@ -8,7 +8,8 @@ export default class Api {
         return fetch(
             `${this._url}/users/me`,
             {
-                headers: this._headers
+                headers: this._headers,
+
             })
             .then(res => {
                 if (res.ok) {
@@ -54,14 +55,27 @@ export default class Api {
             });
     }
 
+    addNewCard(card) {
+        return fetch(
+            `${this._url}/cards`,
+            {
+                method: 'POST',
+                headers: this._headers,
+                body: JSON.stringify({
+                    name: card.name,
+                    link: card.link
+                })
+            })
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                } else {
+                    return Promise.reject(`Ошибка: ${res.status} ${res.statusText}`);
+                }
+            });
+    }
 
     deleteCard() {
 
     }
-
-    addNewCard() {
-
-    }
-
-    // другие методы работы с API
 }
