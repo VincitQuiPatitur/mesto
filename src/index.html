@@ -45,7 +45,8 @@
                     <span class="popup__input-error userName-error"> </span>
                 </label>
                 <label class="popup__label">
-                    <input type="text" placeholder="Краткое описание" required id="description" minlength="2" name="about"
+                    <input type="text" placeholder="Краткое описание" required id="description" minlength="2"
+                           name="about"
                            maxlength="200"
                            class="popup__input popup__input_type_description">
                     <span class="popup__input-error description-error"> </span>
@@ -97,7 +98,10 @@
         <img src="#" alt="#" class="post__image">
         <div class="post__description">
             <h2 class="post__subscription"></h2>
-            <button class="post__like" type="button" aria-label="Лайк"></button>
+            <div class="post__like-container">
+                <button class="post__like" type="button" aria-label="Лайк"></button>
+                <p class="post__like-count" name="likeCount">1</p>
+            </div>
         </div>
     </li>
 </template>

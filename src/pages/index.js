@@ -33,14 +33,14 @@ const openImage = (imageLink, postName) => {
     popupWithImage.open(imageLink, postName);
 }
 
-const generateCard = (name, link) => {
-    const cardItem = new Card(name, link, '.post__template', openImage);
+const generateCard = (name, link, like) => {
+    const cardItem = new Card(name, link, like,'.post__template', openImage);
     return cardItem.createCard();
 }
 
 const cardList = new Section({
     renderer: (data) => {
-        const cardElement = generateCard(data.name, data.link);
+        const cardElement = generateCard(data.name, data.link, data.like);
         cardList.addItem(cardElement);
     }
 }, postContainer);
@@ -58,7 +58,7 @@ const handleEditProfileInformation = (info) => {
 const handleCreateNewPost = (cardObj) => {
     const card = api.addNewCard(cardObj)
         .then(card => {
-            cardList.addItem(generateCard(card.name, card.link));
+            cardList.addItem(generateCard(card.name, card.link, card.like));
         });
     popupAddCard.close();
 };
