@@ -4,6 +4,7 @@ export const popupAddPhotoButton = document.querySelector('.profile__add-button'
 export const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 export const popupCreatePost = document.querySelector('.popup_type_add-photo');
 export const popupOpenImage = document.querySelector('.popup_type_image');
+export const popupDeletionConfirmation = document.querySelector('.popup_type_deletion');
 
 export const profileUserName = document.querySelector('.profile__user-name');
 export const profileDescription = document.querySelector('.profile__description');
@@ -28,5 +29,7 @@ export const elements = {
     inputErrorClass: 'popup__input_type_error',
     errorClass: 'popup__input-error_active',
     popupOpenState: 'popup_opened',
-    closeButtonSelector: 'popup__close-button'
+    closeButtonSelector: 'popup__close-button',
+    confirmationButtonSelector: '.popup__confirmation-button',
+    deleteButtonSelector: '.post__delete'
 };

@@ -5,6 +5,7 @@ import {
     popupEditProfile,
     popupCreatePost,
     popupOpenImage,
+    popupDeletionConfirmation,
     profileUserName,
     profileDescription,
     profileAvatar,
@@ -21,11 +22,14 @@ import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import PopupDeleteCard from "../components/PopupDeleteCard.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
 
 const formElementProfileValidation = new FormValidator(formElementProfile, elements)
 const formCreateNewPostValidation = new FormValidator(formCreateNewPost, elements);
+
+let userId;
 
 formElementProfileValidation.enableValidation();
 formCreateNewPostValidation.enableValidation();
@@ -34,14 +38,26 @@ const openImage = (imageLink, postName) => {
     popupWithImage.open(imageLink, postName);
 }
 
-const generateCard = (name, link, like) => {
-    const cardItem = new Card(name, link, like,'.post__template', openImage);
+const deleteCard = (card) => {
+    popupDeletion.setEventListeners(card);
+    popupDeletion.open();
+}
+
+const generateCard = (data) => {
+    const cardItem = new Card(
+        data,
+        '.post__template',
+        openImage,
+        deleteCard,
+        userId,
+        elements);
+    //console.log(data);
     return cardItem.createCard();
 }
 
 const cardList = new Section({
     renderer: (data) => {
-        const cardElement = generateCard(data.name, data.link);
+        const cardElement = generateCard(data);
         cardList.addItem(cardElement);
     }
 }, postContainer);
@@ -58,11 +74,22 @@ const handleEditProfileInformation = (info) => {
 
 const handleCreateNewPost = (cardObj) => {
     const card = api.addNewCard(cardObj)
-        .then(card => {
-            cardList.addItem(generateCard(card.name, card.link));
+        .then((card) => {
+            cardList.addItem(generateCard(card));
         });
     popupAddCard.close();
 };
+
+const handleDeleteCard = (card) => {
+    api.deleteCard(card)
+        .then(() => {
+            card.deleteElement();
+            popupDeletion.close();
+        })
+        .catch(err => {
+            console.log(err);
+        });
+}
 
 const popupWithImage = new PopupWithImage(popupOpenImage, elements);
 popupWithImage.setEventListeners();
@@ -72,6 +99,9 @@ popupProfileEdit.setEventListeners();
 
 const popupAddCard = new PopupWithForm(popupCreatePost, handleCreateNewPost, elements);
 popupAddCard.setEventListeners();
+
+const popupDeletion = new PopupDeleteCard(popupDeletionConfirmation, handleDeleteCard, elements);
+popupDeletion.setEventListeners();
 
 popupEditProfileButton.addEventListener('click', () => {
     userName.value = userInfo.getUserInfo().profileName;
@@ -104,6 +134,7 @@ api.getInitialCards()
     });
 api.getUserInfo()
     .then(result => {
+        userId = result._id;
         userInfo.setUserInfo(result);
     })
     .catch(error => {

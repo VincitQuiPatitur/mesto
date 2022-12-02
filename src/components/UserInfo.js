@@ -9,7 +9,8 @@ export default class UserInfo {
         return {
             profileName: this._userName.textContent,
             profileJob: this._description.textContent,
-            avatar: this._avatar.src
+            avatar: this._avatar.src,
+            id: this._id,
         };
     }
 
@@ -18,5 +19,6 @@ export default class UserInfo {
         this._description.textContent = userInfo.about;
         this._avatar.src = userInfo.avatar;
         this._avatar.alt = userInfo.name;
+        this._id = userInfo._id;
     }
 }
