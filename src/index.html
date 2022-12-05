@@ -98,6 +98,23 @@
         <button class="popup__save-button popup__confirmation-button" type="submit">Да</button>
     </div>
 </div>
+<div class="popup popup_type_avatar">
+    <div class="popup__container popup__avatar-container">
+        <button class="popup__close-button popup__close-button_type_deletion" type="button" aria-label="Кнопка закрытия окна"></button>
+        <form class="popup__form popup__form_type_post-creating" name="creating">
+            <h3 class="popup__title">Обновить аватар</h3>
+            <fieldset class="popup__fieldset">
+                <label class="popup__label">
+                    <input type="url" placeholder="Ссылка на аватар" required id="avatarLink" name="link"
+                           class="popup__input popup__input_type_post-name">
+                    <span class="popup__input-error imageLink-error"> </span>
+                </label>
+                <button class="popup__save-button popup__save-button_type_create-new-post" type="submit">Сохранить
+                </button>
+            </fieldset>
+        </form>
+    </div>
+</div>
 <template class="post__template">
     <li class="post">
         <button class="post__delete" type="button" aria-label="Удаление"></button>
@@ -106,7 +123,7 @@
             <h2 class="post__subscription"></h2>
             <div class="post__like-container">
                 <button class="post__like" type="button" aria-label="Лайк"></button>
-                <p class="post__like-count" name="likeCount">1</p>
+                <p class="post__like-count" name="likeCount"></p>
             </div>
         </div>
     </li>
