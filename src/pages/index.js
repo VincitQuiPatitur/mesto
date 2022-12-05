@@ -16,7 +16,7 @@ import {
     postContainer,
     likeCounter,
     elements
-    } from '../utils/constants.js';
+} from '../utils/constants.js';
 import Card from '../components/Card.js'
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
@@ -43,15 +43,44 @@ const deleteCard = (card) => {
     popupDeletion.open();
 }
 
+const likeCard = (card) => {
+    api.likeCard(card)
+        .then(result => {
+            card.like();
+            card.countLikesNumber(result);
+        })
+        .catch(error => {
+            console.log(error);
+        })
+}
+
+const dislikeCard = (card) => {
+    api.dislikeCard(card)
+        .then(result => {
+            card.dislike();
+            card.countLikesNumber(result);
+        })
+        .catch(error => {
+            console.log(error);
+        })
+}
+/*const isLiked = (likes) => {
+    likes.some(like => {
+        return userInfo._id === like._id;
+    })
+};*/
+
 const generateCard = (data) => {
     const cardItem = new Card(
         data,
         '.post__template',
         openImage,
         deleteCard,
+        likeCard,
+        dislikeCard,
+        /*isLiked,*/
         userId,
         elements);
-    //console.log(data);
     return cardItem.createCard();
 }
 
@@ -126,7 +155,7 @@ const api = new Api({
 });
 
 api.getInitialCards()
-    .then((result) =>{
+    .then((result) => {
         cardList.renderItems(result);
     })
     .catch(error => {

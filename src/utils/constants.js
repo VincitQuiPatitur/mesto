@@ -31,5 +31,7 @@ export const elements = {
     popupOpenState: 'popup_opened',
     closeButtonSelector: 'popup__close-button',
     confirmationButtonSelector: '.popup__confirmation-button',
-    deleteButtonSelector: '.post__delete'
+    deleteButtonSelector: '.post__delete',
+    likeCounterSelector: '.post__like-count',
+    likeButtonSelector: '.post__like'
 };
