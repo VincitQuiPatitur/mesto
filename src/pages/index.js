@@ -6,16 +6,18 @@ import {
     popupCreatePost,
     popupOpenImage,
     popupDeletionConfirmation,
+    popupEditAvatar,
     profileUserName,
     profileDescription,
     profileAvatar,
     formElementProfile,
     formCreateNewPost,
+    formEditAvatar,
     userName,
     description,
     postContainer,
-    likeCounter,
-    elements
+    elements,
+    avatarSection
 } from '../utils/constants.js';
 import Card from '../components/Card.js'
 import FormValidator from "../components/FormValidator.js";
@@ -28,11 +30,13 @@ import Api from "../components/Api.js";
 
 const formElementProfileValidation = new FormValidator(formElementProfile, elements)
 const formCreateNewPostValidation = new FormValidator(formCreateNewPost, elements);
-
-let userId;
+const formEditAvatarValidation = new FormValidator(formEditAvatar, elements);
 
 formElementProfileValidation.enableValidation();
 formCreateNewPostValidation.enableValidation();
+formEditAvatarValidation.enableValidation();
+
+let userId;
 
 const openImage = (imageLink, postName) => {
     popupWithImage.open(imageLink, postName);
@@ -120,6 +124,18 @@ const handleDeleteCard = (card) => {
         });
 }
 
+const handleEditAvatar = (data) => {
+    api.editAvatar(data)
+        .then(result => {
+            console.log(result.avatar);
+            userInfo.setNewAvatar(result.avatar);
+            popupAvatarEdition.close();
+        })
+        .catch(error => {
+            console.log(error);
+        })
+}
+
 const popupWithImage = new PopupWithImage(popupOpenImage, elements);
 popupWithImage.setEventListeners();
 
@@ -131,6 +147,9 @@ popupAddCard.setEventListeners();
 
 const popupDeletion = new PopupDeleteCard(popupDeletionConfirmation, handleDeleteCard, elements);
 popupDeletion.setEventListeners();
+
+const popupAvatarEdition = new PopupWithForm(popupEditAvatar, handleEditAvatar, elements);
+popupAvatarEdition.setEventListeners();
 
 popupEditProfileButton.addEventListener('click', () => {
     userName.value = userInfo.getUserInfo().profileName;
@@ -145,6 +164,11 @@ popupAddPhotoButton.addEventListener('click', () => {
     formCreateNewPostValidation.hideErrors();
     popupAddCard.open();
 });
+
+avatarSection.addEventListener('click', () => {
+    formEditAvatarValidation.hideErrors();
+    popupAvatarEdition.open();
+})
 
 const api = new Api({
     baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-55',

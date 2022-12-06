@@ -105,15 +105,15 @@
     <div class="popup__container popup__avatar-container">
         <button class="popup__close-button popup__close-button_type_deletion" type="button"
                 aria-label="Кнопка закрытия окна"></button>
-        <form class="popup__form popup__form_type_post-creating" name="creating">
+        <form class="popup__form popup__form_type_avatar-redaction" name="avatar">
             <h3 class="popup__title">Обновить аватар</h3>
             <fieldset class="popup__fieldset">
                 <label class="popup__label">
                     <input type="url" placeholder="Ссылка на аватар" required id="avatarLink" name="link"
-                           class="popup__input popup__input_type_post-name">
-                    <span class="popup__input-error imageLink-error"> </span>
+                           class="popup__input popup__input_type_avatar-link">
+                    <span class="popup__input-error avatarLink-error"> </span>
                 </label>
-                <button class="popup__save-button popup__save-button_type_create-new-post" type="submit">Сохранить
+                <button class="popup__save-button popup__save-button_type_update-avatar" type="submit">Сохранить
                 </button>
             </fieldset>
         </form>

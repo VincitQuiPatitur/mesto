@@ -5,21 +5,26 @@ export const popupEditProfile = document.querySelector('.popup_type_edit-profile
 export const popupCreatePost = document.querySelector('.popup_type_add-photo');
 export const popupOpenImage = document.querySelector('.popup_type_image');
 export const popupDeletionConfirmation = document.querySelector('.popup_type_deletion');
+export const popupEditAvatar = document.querySelector('.popup_type_avatar');
 
 export const profileUserName = document.querySelector('.profile__user-name');
 export const profileDescription = document.querySelector('.profile__description');
-
-export const profileAvatar = document.querySelector('.profile__avatar');
+export const profileAvatar = document.querySelector('.profile__avatar-image');
 
 export const formElementProfile = document.forms.redaction;
 export const formCreateNewPost = document.forms.creating;
+export const formEditAvatar = document.forms.avatar;
 
 export const userName = formElementProfile.elements.namedItem('userName');
 export const description = formElementProfile.elements.namedItem('description');
 
+export const avatarLink = formEditAvatar.elements.namedItem('avatarLink');
+
 export const postContainer = document.querySelector('.posts__container');
 
 export const likeCounter = document.querySelector('.post__like-count');
+
+export const avatarSection = document.querySelector('.profile__avatar');
 
 export const elements = {
     formSelector: '.popup__form',
