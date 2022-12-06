@@ -1,11 +1,5 @@
 export default class Card {
-    constructor({
-                    name,
-                    link,
-                    likes,
-                    _id,
-                    owner
-                }, templateSelector, openImage, deleteCard, likeCard, dislikeCard, userId, elements) {
+    constructor({name, link, likes, _id, owner}, templateSelector, openImage, deleteCard, likeCard, dislikeCard, userId, elements) {
         this._cardName = name;
         this._imageLink = link;
         this._likes = likes;

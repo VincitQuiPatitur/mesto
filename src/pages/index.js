@@ -92,19 +92,33 @@ const cardList = new Section({
 const userInfo = new UserInfo({userName: profileUserName, description: profileDescription, avatar: profileAvatar});
 
 const handleEditProfileInformation = (info) => {
-    userInfo.setUserInfo(info);
+    popupProfileEdit.renderingLoading(true);
     api.setUserInfo(info)
         .then(result => {
-            console.log(result);
+            userInfo.setUserInfo(result);
         })
+        .catch(err => {
+            console.log(err);
+        })
+        .finally(() => {
+            popupProfileEdit.renderingLoading(false);
+            popupProfileEdit.close();
+        });
 };
 
 const handleCreateNewPost = (cardObj) => {
-    const card = api.addNewCard(cardObj)
+    popupAddCard.renderingLoading(true)
+    api.addNewCard(cardObj)
         .then((card) => {
             cardList.addItemBefore(generateCard(card));
+        })
+        .catch(err => {
+            console.log(err);
+        })
+        .finally(() => {
+            popupAddCard.renderingLoading(false);
+            popupAddCard.close();
         });
-    popupAddCard.close();
 };
 
 const handleDeleteCard = (card) => {
@@ -119,14 +133,18 @@ const handleDeleteCard = (card) => {
 }
 
 const handleEditAvatar = (data) => {
+    popupAvatarEdition.renderingLoading(true);
     api.editAvatar(data)
         .then(result => {
             userInfo.setNewAvatar(result.avatar);
-            popupAvatarEdition.close();
         })
         .catch(error => {
             console.log(error);
         })
+        .finally(() => {
+            popupAvatarEdition.renderingLoading(false);
+            popupAvatarEdition.close();
+        });
 }
 
 const popupWithImage = new PopupWithImage(popupOpenImage, elements);
@@ -171,17 +189,11 @@ const api = new Api({
     }
 });
 
-api.getInitialCards()
-    .then((result) => {
-        cardList.renderItems(result);
-    })
-    .catch(error => {
-        console.log(error);
-    });
-api.getUserInfo()
-    .then(result => {
-        userId = result._id;
-        userInfo.setUserInfo(result);
+Promise.all([api.getInitialCards(), api.getUserInfo()])
+    .then(([cards, userInformation]) => {
+        userId = userInformation._id;
+        userInfo.setUserInfo(userInformation);
+        cardList.renderItems(cards);
     })
     .catch(error => {
         console.log(error);
