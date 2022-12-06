@@ -102,7 +102,7 @@ const handleEditProfileInformation = (info) => {
 const handleCreateNewPost = (cardObj) => {
     const card = api.addNewCard(cardObj)
         .then((card) => {
-            cardList.addItem(generateCard(card));
+            cardList.addItemBefore(generateCard(card));
         });
     popupAddCard.close();
 };
@@ -186,4 +186,3 @@ api.getUserInfo()
     .catch(error => {
         console.log(error);
     });
-

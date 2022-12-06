@@ -5,6 +5,10 @@ export default class Section {
     }
 
     addItem(element) {
+        this._container.append(element);
+    }
+
+    addItemBefore(element) {
         this._container.prepend(element);
     }
 
