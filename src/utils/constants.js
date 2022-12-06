@@ -18,15 +18,12 @@ export const formEditAvatar = document.forms.avatar;
 export const userName = formElementProfile.elements.namedItem('userName');
 export const description = formElementProfile.elements.namedItem('description');
 
-export const avatarLink = formEditAvatar.elements.namedItem('avatarLink');
-
 export const postContainer = document.querySelector('.posts__container');
-
-export const likeCounter = document.querySelector('.post__like-count');
 
 export const avatarSection = document.querySelector('.profile__avatar');
 
 export const elements = {
+    postTemplate: '.post__template',
     formSelector: '.popup__form',
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__save-button',
@@ -38,5 +35,6 @@ export const elements = {
     confirmationButtonSelector: '.popup__confirmation-button',
     deleteButtonSelector: '.post__delete',
     likeCounterSelector: '.post__like-count',
-    likeButtonSelector: '.post__like'
+    likeButtonSelector: '.post__like',
+    activeLikeButtonSelector: 'post__like_active'
 };

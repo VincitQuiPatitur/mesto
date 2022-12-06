@@ -68,21 +68,15 @@ const dislikeCard = (card) => {
             console.log(error);
         })
 }
-/*const isLiked = (likes) => {
-    likes.some(like => {
-        return userInfo._id === like._id;
-    })
-};*/
 
 const generateCard = (data) => {
     const cardItem = new Card(
         data,
-        '.post__template',
+        elements.postTemplate,
         openImage,
         deleteCard,
         likeCard,
         dislikeCard,
-        /*isLiked,*/
         userId,
         elements);
     return cardItem.createCard();
@@ -127,7 +121,6 @@ const handleDeleteCard = (card) => {
 const handleEditAvatar = (data) => {
     api.editAvatar(data)
         .then(result => {
-            console.log(result.avatar);
             userInfo.setNewAvatar(result.avatar);
             popupAvatarEdition.close();
         })

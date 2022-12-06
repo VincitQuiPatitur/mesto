@@ -1,5 +1,5 @@
 export default class Card {
-    constructor({name, link, likes, _id, owner}, templateSelector, openImage, deleteCard, likeCard, dislikeCard, /*isLiked,*/ userId, elements) {
+    constructor({name, link, likes, _id, owner}, templateSelector, openImage, deleteCard, likeCard, dislikeCard, userId, elements) {
         this._cardName = name;
         this._imageLink = link;
         this._likes = likes;
@@ -11,7 +11,6 @@ export default class Card {
         this._deleteCard = deleteCard.bind(this);
         this._likeCard = likeCard.bind(this);
         this._dislikeCard = dislikeCard.bind(this);
-        /*this._isLiked = isLiked;*/
         this._elements = elements;
     }
 
@@ -24,14 +23,11 @@ export default class Card {
     }
 
     _handleLikeCard() {
-        if (this._likeButton.classList.contains('post__like_active')) this._dislikeCard(this)
+        if (this._likeButton.classList.contains(this._elements.activeLikeButtonSelector)) this._dislikeCard(this)
         else this._likeCard(this);
-        /*this._likeCard(this);*/
-        /*this._card.querySelector('.post__like').classList.toggle('post__like_active');*/
     }
 
     _handleDeleteCard() {
-        console.log(this);
         this._deleteCard(this);
     }
 
@@ -75,16 +71,6 @@ export default class Card {
             else this.dislike();
         });
 
-
-        /*if (this._likes.length !== 0) this._likeCounter.textContent = this._likes.length
-        else this._likeCounter.textContent = 0;*/
-
-        /*if(this._isLiked) {
-            this.likeButton.classList.add('post__like_active');
-        }*/
-
-
-
         this._setEventListeners();
 
         return this._card;
@@ -95,20 +81,12 @@ export default class Card {
         this._card = null;
     }
 
-    /*likeCard(result) {
-        this.likeButton.classList.toggle('post__like_active');
-        console.log(this.likeCounter.textContent);
-        this.likeCounter.textContent = result.likes.length;
-        console.log(this.likeCounter.textContent);
-        this._isLiked = !this._isLiked;
-    }*/
-
     like(){
-        this._likeButton.classList.add('post__like_active');
+        this._likeButton.classList.add(this._elements.activeLikeButtonSelector);
     }
 
     dislike() {
-        this._likeButton.classList.remove('post__like_active');
+        this._likeButton.classList.remove(this._elements.activeLikeButtonSelector);
     }
 
     countLikesNumber(result) {
