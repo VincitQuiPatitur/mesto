@@ -95,8 +95,6 @@ const handleEditProfileInformation = (info) => {
     api.setUserInfo(info)
         .then(result => {
             userInfo.setUserInfo(result);
-        })
-        .then(() => {
             popupProfileEdit.close();
         })
         .catch(err => {
@@ -112,8 +110,6 @@ const handleCreateNewPost = (cardObj) => {
     api.addNewCard(cardObj)
         .then((card) => {
             cardList.addItemBefore(generateCard(card));
-        })
-        .then(() =>{
             popupAddCard.close();
         })
         .catch(err => {
@@ -128,8 +124,6 @@ const handleDeleteCard = (card) => {
     api.deleteCard(card)
         .then(() => {
             card.deleteElement();
-        })
-        .then(() => {
             popupDeletion.close();
         })
         .catch(err => {
@@ -142,9 +136,6 @@ const handleEditAvatar = (data) => {
     api.editAvatar(data)
         .then(result => {
             userInfo.setNewAvatar(result.avatar);
-
-        })
-        .then(() => {
             popupAvatarEdition.close();
         })
         .catch(error => {
