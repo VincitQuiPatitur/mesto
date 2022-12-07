@@ -43,8 +43,7 @@ const openImage = (imageLink, postName) => {
 }
 
 const deleteCard = (card) => {
-    popupDeletion.setEventListeners(card);
-    popupDeletion.open();
+    popupDeletion.open(card);
 }
 
 const likeCard = (card) => {
@@ -92,32 +91,36 @@ const cardList = new Section({
 const userInfo = new UserInfo({userName: profileUserName, description: profileDescription, avatar: profileAvatar});
 
 const handleEditProfileInformation = (info) => {
-    popupProfileEdit.renderingLoading(true);
+    popupProfileEdit.renderingLoading(true, 'Сохранение...');
     api.setUserInfo(info)
         .then(result => {
             userInfo.setUserInfo(result);
         })
+        .then(() => {
+            popupProfileEdit.close();
+        })
         .catch(err => {
             console.log(err);
         })
         .finally(() => {
-            popupProfileEdit.renderingLoading(false);
-            popupProfileEdit.close();
+            popupProfileEdit.renderingLoading(false, '');
         });
 };
 
 const handleCreateNewPost = (cardObj) => {
-    popupAddCard.renderingLoading(true)
+    popupAddCard.renderingLoading(true, 'Создание...');
     api.addNewCard(cardObj)
         .then((card) => {
             cardList.addItemBefore(generateCard(card));
+        })
+        .then(() =>{
+            popupAddCard.close();
         })
         .catch(err => {
             console.log(err);
         })
         .finally(() => {
-            popupAddCard.renderingLoading(false);
-            popupAddCard.close();
+            popupAddCard.renderingLoading(false, '');
         });
 };
 
@@ -125,6 +128,8 @@ const handleDeleteCard = (card) => {
     api.deleteCard(card)
         .then(() => {
             card.deleteElement();
+        })
+        .then(() => {
             popupDeletion.close();
         })
         .catch(err => {
@@ -133,17 +138,20 @@ const handleDeleteCard = (card) => {
 }
 
 const handleEditAvatar = (data) => {
-    popupAvatarEdition.renderingLoading(true);
+    popupAvatarEdition.renderingLoading(true, 'Сохранение...');
     api.editAvatar(data)
         .then(result => {
             userInfo.setNewAvatar(result.avatar);
+
+        })
+        .then(() => {
+            popupAvatarEdition.close();
         })
         .catch(error => {
             console.log(error);
         })
         .finally(() => {
-            popupAvatarEdition.renderingLoading(false);
-            popupAvatarEdition.close();
+            popupAvatarEdition.renderingLoading(false, '');
         });
 }
 
